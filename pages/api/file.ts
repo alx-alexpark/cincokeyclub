@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import S3 from "aws-sdk/clients/s3";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 const s3 = new S3({
   endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,
@@ -10,6 +12,14 @@ const s3 = new S3({
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return res
+      .status(403)
+      .json({ message: "Access denied: What are you doing???" });
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
