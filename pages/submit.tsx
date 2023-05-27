@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { Field, useFormik } from "formik";
 
 const BUCKET_URL = "https://cdn.funny-bunny.ninja/";
 
-export default function Home() {
+export default function SubmitHours() {
   const [file, setFile] = useState<any>();
   const [uploadingStatus, setUploadingStatus] = useState<any>();
   const [uploadedFile, setUploadedFile] = useState<any>();
@@ -25,8 +25,10 @@ export default function Home() {
       alert(JSON.stringify(actuallySentData, null, 2));
     },
   });
-  const selectFile = (e) => {
-    setFile(e.target.files[0]);
+  const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
 
   const uploadFile = async () => {
@@ -101,7 +103,7 @@ export default function Home() {
         </main>
       </div>
     );
-  } else {
-    return <h1>Login required</h1>;
   }
+    return <h1>Login required</h1>;
+  
 }

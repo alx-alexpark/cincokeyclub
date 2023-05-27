@@ -10,7 +10,7 @@ export default async function submitHours(req: NextApiRequest, res: NextApiRespo
     const client = await clientPromise;
     const db = client.db("auth");
     const users = await db.collection("users");
-    await users.updateOne({ email: session.user.email }, { $push: { events: { hours: parseInt(hours), picture: image, event: event, approved: null} } });
+    await users.updateOne({ email: session?.user?.email }, { $push: { events: { hours: parseInt(hours), picture: image, event: event, approved: null} } });
     res.json({ message: "sussy" })
   } else {
     res.status(403).json({
