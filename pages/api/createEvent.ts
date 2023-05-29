@@ -2,42 +2,27 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
+import { v4 as uuidv4 } from "uuid";
 
-interface Event {
-  image: string;
-  hours: number;
-  event: string;
-  approved: null | boolean;
-  id: string;
-  user: string;
-  userImage: string;
-}
-
-export default async function getHours(
+export default async function createEvent(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
+  const { name } = req.body;
   if (session) {
     try {
-      const { userEmail } = req.body;
-
-      if (userEmail == undefined) {
-        res.status(500).json({error: "No user email provided"});
-      }
-
       const client = await clientPromise;
       const db = client.db("auth");
       const selUser = await db
         .collection("users")
-        .findOne({ email: userEmail });
-      let totalHours = 0.0;
-      selUser?.events.forEach((event: Event) => {
-        if (event.approved == true) {
-          totalHours += event.hours;
-        }
-      });
-      res.json({ hours: totalHours });
+        .findOne({ email: session?.user?.email });
+      if (selUser?.admin) {
+        await db.collection("events").insertOne({ name: name, id: uuidv4(), createdBy: session.user?.name, dateCreated: Date.now() });
+        res.json({success: true})
+      } else {
+        res.status(403).json({ error: "This action is admin only!" });
+      }
     } catch (e) {
       res.json({ error: e });
     }

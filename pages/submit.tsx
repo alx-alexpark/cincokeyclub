@@ -21,7 +21,7 @@ export default function SubmitHours() {
     onSubmit: async (values: { hours: number; event: string; image: any }) => {
       const actuallySentData = structuredClone(values);
       actuallySentData.image = uploadedFile;
-      await axios.post("/api/hours", actuallySentData);
+      await axios.post("/api/submitHours", actuallySentData);
       alert(JSON.stringify(actuallySentData, null, 2));
     },
   });

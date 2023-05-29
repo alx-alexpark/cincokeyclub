@@ -13,31 +13,34 @@ interface Event {
   userImage: string;
 }
 
-export default async function getHours(
+interface LeaderboardEntry {
+  name: string;
+  hours: number;
+}
+
+export default async function getLeaderboard(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
   if (session) {
     try {
-      const { userEmail } = req.body;
-
-      if (userEmail == undefined) {
-        res.status(500).json({error: "No user email provided"});
-      }
-
+      let leaderboard: LeaderboardEntry[] = [];
       const client = await clientPromise;
       const db = client.db("auth");
-      const selUser = await db
-        .collection("users")
-        .findOne({ email: userEmail });
-      let totalHours = 0.0;
-      selUser?.events.forEach((event: Event) => {
-        if (event.approved == true) {
-          totalHours += event.hours;
-        }
+      const allUsers = await db.collection("users").find().toArray();
+      allUsers.forEach((user) => {
+        let userHours = 0.0;
+        user.events.forEach((event: Event) => {
+          if (event.approved == true) {
+            userHours += event.hours;
+          }
+        });
+        leaderboard.push({name: user.name, hours: userHours});
       });
-      res.json({ hours: totalHours });
+      leaderboard.sort((a, b) => a.hours - b.hours);
+      leaderboard.reverse();
+      res.json(leaderboard);
     } catch (e) {
       res.json({ error: e });
     }

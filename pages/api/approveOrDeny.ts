@@ -9,7 +9,7 @@ interface Event {
 
 export default async function approveOrDeny(req: NextApiRequest, res: NextApiResponse) {
     const session = await getServerSession(req, res, authOptions)
-    const { email, id, status } = req.query;
+    const { email, id, status } = req.body;
     if (session) {
         try {
             const client = await clientPromise;

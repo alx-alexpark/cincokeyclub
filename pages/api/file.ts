@@ -27,6 +27,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     let { name, type } = req.body;
 
+    if (!type.startsWith("image/")) {
+      res.status(500).json({ error: "Only images are allowed, what shenanigans are you trying to pull??"})
+    }
+
     const fileParams = {
       Bucket: process.env.BUCKET_NAME,
       Key: name,
