@@ -18,8 +18,15 @@ export default async function createEvent(
         .collection("users")
         .findOne({ email: session?.user?.email });
       if (selUser?.admin) {
-        await db.collection("events").insertOne({ name: name, id: uuidv4(), createdBy: session.user?.name, dateCreated: Date.now() });
-        res.json({success: true})
+        await db
+          .collection("events")
+          .insertOne({
+            name: name,
+            id: uuidv4(),
+            createdBy: session.user?.name,
+            dateCreated: Date.now(),
+          });
+        res.json({ success: true });
       } else {
         res.status(403).json({ error: "This action is admin only!" });
       }

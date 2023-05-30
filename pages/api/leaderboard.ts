@@ -16,6 +16,7 @@ interface Event {
 interface LeaderboardEntry {
   name: string;
   hours: number;
+  picture: string;
 }
 
 export default async function getLeaderboard(
@@ -32,11 +33,11 @@ export default async function getLeaderboard(
       allUsers.forEach((user) => {
         let userHours = 0.0;
         user.events.forEach((event: Event) => {
-          if (event.approved == true) {
+          if (event.approved) {
             userHours += event.hours;
           }
         });
-        leaderboard.push({name: user.name, hours: userHours});
+        leaderboard.push({name: user.name, hours: userHours, picture: user.image});
       });
       leaderboard.sort((a, b) => a.hours - b.hours);
       leaderboard.reverse();

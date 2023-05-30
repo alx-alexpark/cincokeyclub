@@ -33,7 +33,7 @@ export default async function getHours(
         .findOne({ email: userEmail });
       let totalHours = 0.0;
       selUser?.events.forEach((event: Event) => {
-        if (event.approved == true) {
+        if (event.approved) {
           totalHours += event.hours;
         }
       });
