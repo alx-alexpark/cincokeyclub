@@ -29,7 +29,7 @@ export default function AdminPanel() {
         setIsAdmin(false);
       });
 
-    axios.get("/api/pending").then((res) => {
+    axios.get("/api/getPendingHoursRequests").then((res) => {
       setRequests(res.data.pending);
     });
   }, []);

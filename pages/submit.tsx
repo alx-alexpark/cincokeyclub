@@ -42,7 +42,7 @@ export default function SubmitHours() {
   };
 
   useEffect(() => {
-    axios.get("/api/events").then((res) => {
+    axios.get("/api/getEvents").then((res) => {
       setEventdata(res.data.events);
       console.log(res.data.events);
     });
@@ -53,7 +53,7 @@ export default function SubmitHours() {
 
     let randomFileName = uuidv4();
 
-    let { data } = await axios.post("/api/file", {
+    let { data } = await axios.post("/api/getPresignedURL", {
       name: randomFileName + "." + file.name.split(".")[1],
       type: file.type,
     });
