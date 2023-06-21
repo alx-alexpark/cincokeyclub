@@ -7,7 +7,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, profile }): Promise<boolean> {
       if (account?.provider === "google") {
-        return profile?.email?.endsWith("katyisd.org") ?? false;
+        // return profile?.email?.endsWith("katyisd.org") ?? false;
+        return true;
       }
       return false;
     },
