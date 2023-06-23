@@ -22,7 +22,7 @@ export default function AdminPanel() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/isadmin")
+      .get("/api/isadmin")
       .then((res) => {
         setIsAdmin(res.data.admin);
       })

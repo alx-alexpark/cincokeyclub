@@ -78,8 +78,8 @@ export default function SubmitHours() {
 
   if (session) {
     return (
-      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
-        <main>
+      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col" >
+        <main style={{backgroundColor: "transparent", background: "transparent"}}>
           <p>Please select a file to upload</p>
           <input
             type="file"
@@ -135,7 +135,7 @@ export default function SubmitHours() {
             </select>
             <input
               type="submit"
-              disabled={!(uploadedFile.length > 0)}
+              disabled={uploadedFile == undefined}
               className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
             />
           </form>
