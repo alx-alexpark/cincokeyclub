@@ -1,7 +1,9 @@
+import SuggestLogin from "@/components/SuggestLogin";
 import { Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface HoursRequest {
   hours: string;
@@ -47,6 +49,7 @@ export default function AdminPanel() {
             border="0.5em solid blue"
             width="auto"
             padding="0.5em"
+            key={uuidv4()}
             borderRadius="1em"
           >
             <img
@@ -103,9 +106,5 @@ export default function AdminPanel() {
     );
   }
 
-  return (
-    <>
-      <h1>Access Denied</h1>
-    </>
-  );
+  return <SuggestLogin />;
 }

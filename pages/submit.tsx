@@ -4,6 +4,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import { Field, useFormik } from "formik";
+import SuggestLogin from "@/components/SuggestLogin";
 
 const BUCKET_URL = "https://cdn.funny-bunny.ninja/";
 
@@ -129,7 +130,7 @@ export default function SubmitHours() {
               className="text-black mb-4 rounded-md pl-2 text-md p-2"
             >
               {eventdata?.map((event: Event) => 
-                <option value={event.id}>{event.name}</option>
+                <option key={uuidv4()} value={event.id}>{event.name}</option>
               )}
             </select>
             <input
@@ -142,5 +143,5 @@ export default function SubmitHours() {
       </div>
     );
   }
-  return <h1>Login required</h1>;
+  return <SuggestLogin />
 }

@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
 interface LeaderboardEntry {
   name: string;
@@ -40,6 +40,7 @@ export default function Leaderboard() {
                   variant="outline"
                   marginTop="0.5em"
                   marginBottom="0.5em"
+                  key={uuidv4()}
                 >
                   <img
                     style={{ objectFit: "cover", maxWidth: "200px" }}

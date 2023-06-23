@@ -8,21 +8,13 @@ export default async function createEvent(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions);
-  const { name } = req.body;
-  if (session) {
-    try {
-      const client = await clientPromise;
-      const db = client.db("auth");
-      const collection = db.collection("events");
-      const allEvents = await collection.find().toArray();
-      res.json({ events: allEvents });
-    } catch (e) {
-      res.json({ error: e });
-    }
-  } else {
-    res.status(403).json({
-      error: "Access Denied",
-    });
+  try {
+    const client = await clientPromise;
+    const db = client.db("auth");
+    const collection = db.collection("events");
+    const allEvents = await collection.find().toArray();
+    res.json({ events: allEvents });
+  } catch (e) {
+    res.json({ error: e });
   }
 }
