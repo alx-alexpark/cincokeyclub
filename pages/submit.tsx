@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import { Field, useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const BUCKET_URL = "https://cdn.funny-bunny.ninja/";
 
@@ -20,7 +21,7 @@ export default function SubmitHours() {
   const [file, setFile] = useState<any>();
   const [uploadingStatus, setUploadingStatus] = useState<any>();
   const [uploadedFile, setUploadedFile] = useState<any>();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [eventdata, setEventdata] = useState<[]>([]);
 
   const formik = useFormik({
@@ -142,6 +143,8 @@ export default function SubmitHours() {
         </main>
       </div>
     );
+  } else if (status == "loading") {
+    return <LoadingScreen />;
   }
-  return <SuggestLogin />
+  return <SuggestLogin />;
 }

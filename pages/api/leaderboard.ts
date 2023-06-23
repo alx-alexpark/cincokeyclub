@@ -28,13 +28,16 @@ export default async function getLeaderboard(
     const client = await clientPromise;
     const db = client.db("auth");
     const allUsers = await db.collection("users").find().toArray();
+    console.log(allUsers);
     allUsers.forEach((user) => {
       let userHours = 0.0;
-      user.events.forEach((event: Event) => {
-        if (event.approved) {
-          userHours += event.hours;
-        }
-      });
+      if (user.events != undefined) {
+        user.events.forEach((event: Event) => {
+          if (event.approved) {
+            userHours += event.hours;
+          }
+        });
+      }
       leaderboard.push({
         name: user.name,
         hours: userHours,
@@ -45,6 +48,7 @@ export default async function getLeaderboard(
     leaderboard.reverse();
     res.json(leaderboard);
   } catch (e) {
+    console.log(e);
     res.json({ error: e });
   }
 }

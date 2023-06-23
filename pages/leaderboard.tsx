@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
@@ -23,9 +24,10 @@ export default function Leaderboard() {
     "/api/leaderboard",
     fetcher
   );
-  if (isLoading) return <Center>Loading</Center>;
-  if (error) return <Center>Failed to load</Center>;
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <Center height="100vh" width="100vw">Failed to load</Center>;
   if (data) {
+    console.log(data);
     return (
       <div>
         <Center height="100vh" width="100vw">
