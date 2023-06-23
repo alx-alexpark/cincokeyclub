@@ -1,16 +1,25 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut} from "next-auth/react"
+import Link from "next/link"
+import {Text} from "@chakra-ui/react";
+import Image from "next/image";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
 
 export default function Home() {
   const { data: session, status } = useSession()
+  // useEffect(() => {
+  //   toast.warning("WARNING: This website is in alpha, many things are subject to change and bugs will be present.")
+  // }, [])
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-30">
+      <Text fontSize="3rem" fontWeight="extrabold" marginTop="1em">Cinco Key Club</Text> 
+      <Image src="/kc.png" width="325" height="325" alt="Key Club Logo"/>
 
-      {status === "authenticated" ? <><h1>Hello {session?.user?.name}</h1><button onClick={() => signOut()}>Sign out</button></> : <h1>Not signed in</h1>}
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <button
-          onClick={() => signIn()}
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left" style={{marginBottom: "2em"}}>
+        <Link
+          href="/submit"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-blue-400 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -20,13 +29,13 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Login to submit your hours.
+            Log in and submit your hours!
           </p>
-        </button>
+        </Link>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
+        <Link
+          href="/wip"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-blue-400 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -39,11 +48,11 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             We publish photos of our activities.
           </p>
-        </a>
+        </Link>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+        <Link
+          href="/leaderboard"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-blue-400 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -56,11 +65,11 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             See who has the most volunteer hours.
           </p>
-        </a>
+        </Link>
 
         <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          href="/wip"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-blue-400 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
         >
