@@ -15,11 +15,13 @@ export default async function getPendingHoursRequests(req: NextApiRequest, res: 
     const users = await db.collection("users").find().toArray();
     let pendingHours: Event[] = [];
     users.forEach((user) => {
+      if (user.events != undefined) {
         user.events.forEach((event: Event) => {
             if (event.approved === null) {
                 pendingHours.push(event);
             }
         });
+      }
     });
     res.json({ pending: pendingHours });
   } else {

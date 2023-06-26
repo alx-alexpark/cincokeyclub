@@ -8,6 +8,11 @@ const nextConfig = {
         hostname: 'cdn.funny-bunny.ninja',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'drive.google.com',
+        pathname: '/**',
+      },
     ],
   },
 }
