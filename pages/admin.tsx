@@ -1,5 +1,5 @@
 import SuggestLogin from "@/components/SuggestLogin";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Card, Flex } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -44,12 +44,11 @@ export default function AdminPanel() {
     return (
       <main className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
         {requests.map((req: HoursRequest) => (
+          <Card key={uuidv4()}>
           <Flex
             className="flex items-center container flex-col"
-            border="0.5em solid blue"
             width="auto"
             padding="0.5em"
-            key={uuidv4()}
             borderRadius="1em"
           >
             <img
@@ -63,7 +62,6 @@ export default function AdminPanel() {
               }}
             />
             <p>{req.hours} Hours</p>
-            <br />
             <p>Submitted by {req.user}</p>
             <Flex
               alignItems="stretch"
@@ -101,6 +99,7 @@ export default function AdminPanel() {
               </Button>
             </Flex>
           </Flex>
+          </Card>
         ))}
       </main>
     );

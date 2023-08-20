@@ -18,12 +18,15 @@ export default async function getHours(
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
-  if (session) {
     try {
-      const { userEmail } = req.body;
+      let { userEmail } = req.body;
+
+      if (userEmail == undefined && session) {
+        userEmail = session.user?.email;
+      }
 
       if (userEmail == undefined) {
-        res.status(500).json({error: "No user email provided"});
+        res.status(500).json({ error: "No user email provided" });
       }
 
       const client = await clientPromise;
@@ -41,9 +44,4 @@ export default async function getHours(
     } catch (e) {
       res.json({ error: e });
     }
-  } else {
-    res.status(403).json({
-      error: "Access Denied",
-    });
-  }
 }

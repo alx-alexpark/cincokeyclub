@@ -13,7 +13,7 @@ export default function SuggestLogin() {
       <Center>
         <Stack>
           <Text fontSize="4xl">Access Denied</Text>
-          <Button onClick={() => signIn()}>Sign in</Button>
+          <Button onClick={() => signIn("google")}>Sign in</Button>
         </Stack>
       </Center>
     </Container>

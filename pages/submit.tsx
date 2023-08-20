@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Field, useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
+import styles from "../styles/SubmitHours.module.css";
+import { Text } from "@chakra-ui/react";
+import Link from "next/link";
 
 const BUCKET_URL = "https://cdn.funny-bunny.ninja/";
 
@@ -79,21 +82,27 @@ export default function SubmitHours() {
 
   if (session) {
     return (
-      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col" >
-        <main style={{backgroundColor: "transparent", background: "transparent"}}>
-          <p>Please select a file to upload</p>
+      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
+        <main
+          style={{ backgroundColor: "transparent", background: "transparent" }}
+        >
+          <p className="font-semibold">Please select a file to upload</p>
           <input
             type="file"
             onChange={(e) => selectFile(e)}
             accept="image/*"
             className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 m-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+            style={{ color: "white" }}
           />
           {file && (
             <>
               <p>Selected file: {file.name}</p>
               <button
                 onClick={uploadFile}
-                className="bg-purple-500 text-white p-2 rounded-sm shadow-md hover:bg-purple-700 transition-all"
+                className={
+                  styles.flash +
+                  " bg-purple-500 text-white p-2 rounded-sm shadow-md hover:bg-purple-700 transition-all"
+                }
               >
                 Confirm upload
               </button>
@@ -130,9 +139,11 @@ export default function SubmitHours() {
               value={formik.values.event}
               className="text-black mb-4 rounded-md pl-2 text-md p-2"
             >
-              {eventdata?.map((event: Event) => 
-                <option key={uuidv4()} value={event.id}>{event.name}</option>
-              )}
+              {eventdata?.map((event: Event) => (
+                <option key={uuidv4()} value={event.id}>
+                  {event.name}
+                </option>
+              ))}
             </select>
             <input
               type="submit"
@@ -140,6 +151,7 @@ export default function SubmitHours() {
               className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
             />
           </form>
+          <Link href="/myHours"><Text fontWeight="bold" fontSize='1.25rem'><u>See your previous hours</u></Text></Link>
         </main>
       </div>
     );

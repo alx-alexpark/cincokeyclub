@@ -9,7 +9,7 @@ export default async function createEvent(
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
-  const { name } = req.body;
+  const { name } = req.query;
   if (session) {
     try {
       const client = await clientPromise;

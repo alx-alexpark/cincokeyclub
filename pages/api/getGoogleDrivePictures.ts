@@ -33,7 +33,7 @@ export default async function handler(
     version: "v3",
     auth: oauth2Client,
     params: {
-      q: `mimeType = 'image/png'`,
+      q: `mimeType = 'image/png' or mimeType = 'image/jpeg'`,
     },
   });
 
