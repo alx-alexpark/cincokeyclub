@@ -16,7 +16,7 @@ import {
 import Link from "next/link";
 
 interface Event {
-  hours: Number;
+  hours: number;
   picture: String;
   userImage: String;
   approved: boolean;
@@ -38,7 +38,7 @@ export default function MyHours() {
       })
       .catch((error) => {
         console.error(error);
-        setTotalHours("NaN");
+        setTotalHours(-1);
       });
     axios.get("/api/myEvents").then((res) => {
       console.log(res.data.events);
