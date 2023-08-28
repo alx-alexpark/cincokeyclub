@@ -26,6 +26,7 @@ export default async function submitHours(
             user: session?.user?.name,
             userImage: session?.user?.image,
             userEmail: session?.user?.email,
+            uuid: uuidv4(),
           },
         },
       }

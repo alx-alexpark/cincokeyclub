@@ -2,9 +2,10 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next"
 import clientPromise from "../../lib/mongodb";
+import getEventNameById from "@/util/getEventNameById";
 
 interface Event {
-    image: string, hours: number, event: string, approved: null | boolean
+    image: string, hours: number, eventId: string, approved: null | boolean, eventName: string;
 }
 
 export default async function getPendingHoursRequests(req: NextApiRequest, res: NextApiResponse) {
@@ -16,13 +17,16 @@ export default async function getPendingHoursRequests(req: NextApiRequest, res: 
     let pendingHours: Event[] = [];
     users.forEach((user) => {
       if (user.events != undefined) {
-        user.events.forEach((event: Event) => {
+        user.events.forEach(async (event: Event) => {
             if (event.approved === null) {
                 pendingHours.push(event);
             }
         });
       }
     });
+    for (let i = 0; i < pendingHours.length; i++) {
+        pendingHours[i].eventName = await getEventNameById(pendingHours[i].eventId);
+    }
     res.json({ pending: pendingHours });
   } else {
     res.status(403).json({

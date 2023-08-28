@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let { name, type } = req.body;
 
     if (!type.startsWith("image/")) {
-      res.status(500).json({ error: "Only images are allowed, what shenanigans are you trying to pull??"})
+      res.status(500).json({ error: "Only images are allowed, what shenanigans are you trying to pull??" })
     }
 
     const fileParams = {

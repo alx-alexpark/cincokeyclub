@@ -23,6 +23,7 @@ interface Event {
   user: String;
   userEmail: String;
   eventId: String;
+  eventName: String;
 }
 
 export default function MyHours() {
@@ -69,21 +70,23 @@ export default function MyHours() {
           >
             <br />
             <Text fontSize="1.5rem">Events you have attended</Text>
-            {events != undefined ? events.map((event: Event) => (
-              <Card direction={{ base: "column", sm: "row" }} key={uuidv4()}>
+            {events != undefined ? events.map((event: Event) => {
+              // const nameResponse = axios.get(`/api/getEventNameById?eventId=${event.eventId}`)
+              return (<Card direction={{ base: "column", sm: "row" }} key={uuidv4()}>
                 <CardBody>
                   <HStack
                     align="stretch"
                     divider={<StackDivider borderColor="gray.200" />}
                     spacing={2}
                   >
-                    <Text>{event.eventId}</Text>
+                    <Text>{event.eventName}</Text>
                     <Text>{event.hours} Hours</Text>
                     <Text>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Text>
                   </HStack>
                 </CardBody>
               </Card>
-            )): <h1>You have not submitted any hours yet</h1>}
+              )
+            }) : <h1>You have not submitted any hours yet</h1>}
           </Flex>
         </main>
       </div>
