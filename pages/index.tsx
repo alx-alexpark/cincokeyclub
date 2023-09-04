@@ -2,26 +2,26 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  // useEffect(() => {
-  //   toast.warning("WARNING: This website is in alpha, many things are subject to change and bugs will be present.")
-  // }, [])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-30">
+      <Navbar />
       <Flex flexDir="column" alignItems="center" justifyContent='center'>
         <Text fontSize="3rem" fontWeight="extrabold" marginTop="1em">
           Cinco Key Club
         </Text>
         <Text fontSize="1.25rem">Division 3W - TO Key Club</Text>
+        <Image src="/kc.png" width="325" height="325" alt="Key Club Logo" />
       </Flex>
-      <Image src="/kc.png" width="325" height="325" alt="Key Club Logo" />
 
-      <div
+      <Text fontSize="1.1rem" textAlign="center" marginBottom="3em" paddingLeft="4em" paddingRight="4em">Key Club is a volunteer organization that stands for Kiwanis Empowering Youth. Key Club members around the world are learning how to lead and stand for what’s right through service and volunteerism. In partnership with their local Kiwanis club, high school students are making a positive impact as they serve others in their schools and communities.</Text>
+
+
+      {/* <div
         className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
         style={{ marginBottom: "2em" }}
       >
@@ -91,7 +91,7 @@ export default function Home() {
             Are you an organization that needs volunteers? Contact us here!
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   );
 }
