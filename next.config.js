@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.funny-bunny.ninja',
+        hostname: 'cdn.usercontent.cincokey.club',
         pathname: '/**',
       },
       {

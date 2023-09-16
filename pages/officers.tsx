@@ -1,9 +1,11 @@
+import Navbar from "@/components/Navbar";
 import OfficerCard from "@/components/OfficerCard";
 import { Flex, Text } from "@chakra-ui/react";
 
 export default function OfficersPage() {
   return (
     <main>
+      <Navbar />
       <Flex
         height="100vh"
         width="100vw"

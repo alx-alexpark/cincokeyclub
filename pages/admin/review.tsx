@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import SuggestLogin from "@/components/SuggestLogin";
 import { Button, Card, Flex } from "@chakra-ui/react";
 import axios from "axios";
@@ -45,6 +46,7 @@ export default function AdminPanel() {
   if (isAdmin && session) {
     return (
       <main className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
+        <Navbar />
 
         {requests.length == 0 && <h1>There are no more hour submissions for you to process</h1>}
         {requests.map((req: HoursRequest) => (

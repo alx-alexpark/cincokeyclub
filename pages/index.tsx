@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-30">
       <Navbar />
+      <div></div>
       <Flex flexDir="column" alignItems="center" justifyContent='center'>
         <Text fontSize="3rem" fontWeight="extrabold" marginTop="1em">
           Cinco Key Club

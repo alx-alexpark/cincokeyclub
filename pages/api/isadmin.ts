@@ -11,8 +11,8 @@ export default async function isAdmin(req: NextApiRequest, res: NextApiResponse)
     const selUser = await db.collection("users").findOne({ email: session?.user?.email });
     res.json({ admin: selUser?.admin });
   } else {
-    res.status(403).json({
-      error: "Access Denied",
+    res.status(200).json({
+      admin: false,
     })
   }
 }

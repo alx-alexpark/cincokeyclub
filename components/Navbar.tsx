@@ -20,13 +20,27 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import axios from "axios";
+import Image from "next/image";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  let { status } = useSession();
+
+  useEffect(() => {
+    if (status == "authenticated") {
+      axios.get("/api/isadmin").then(data => {
+        if (data.data.admin) {
+          NAV_ITEMS = NAV_ITEMS_ADMIN;
+        }
+      })
+    }
+  }, []);
 
   return (
-    <Box>
+    <Box position="absolute" top="0" left="0">
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -54,15 +68,15 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Text
+          {/* <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            Logo
-          </Text>
+            <Image src="/android-chrome-192x192.png" alt={"The Cinco Key Club logo"} width="32" height="32" style={{maxWidth: "100%", alignSelf: 'start'}}/>
+          </Text> */}
 
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
+          <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
           </Flex>
         </Flex>
@@ -76,21 +90,36 @@ export default function WithSubnavigation() {
           {/* <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             Sign In
           </Button> */}
-          <Button
+          {status == "authenticated" ? <Button
             as={"a"}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
-            onClick={() => signIn("google")}
+            onClick={() => signOut()}
             fontWeight={600}
             color={"white"}
-            bg={"pink.400"}
+            bg={"red.400"}
             href={"#"}
             _hover={{
-              bg: "pink.300",
+              bg: "red.500",
             }}
-          >
-            Login/Register
-          </Button>
+          >Sign out</Button> : 
+          <Button
+          as={"a"}
+          display={{ base: "none", md: "inline-flex" }}
+          fontSize={"sm"}
+          onClick={() => signIn("google")}
+          fontWeight={600}
+          color={"white"}
+          bg={"pink.400"}
+          href={"#"}
+          _hover={{
+            bg: "pink.300",
+          }}
+        >
+          Login/Register
+        </Button>
+          }
+         
         </Stack>
       </Flex>
 
@@ -263,7 +292,7 @@ interface NavItem {
   href?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+let NAV_ITEMS: Array<NavItem> = [
   {
     label: "Volunteer hours",
     children: [
@@ -300,5 +329,66 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Calendar",
     href: "/wip"
+  }
+];
+
+const NAV_ITEMS_ADMIN: Array<NavItem> = [
+  {
+    label: "Volunteer hours",
+    children: [
+      {
+        label: "Submit Hours",
+        subLabel:
+          "Upload a picture of you volunteering in order to receive hours",
+        href: "/submit",
+      },
+      {
+        label: "Check your hours",
+        subLabel: "See how many hours you have accumulated, and their status.",
+        href: "/myEvents",
+      },
+      {
+        label: "Hours leaderboard",
+        subLabel: "Compete to have the highest number of volunteer hours!",
+        href: "/leaderboard"
+      }
+    ],
+  },
+  {
+    label: "Gallery",
+    href: "/wip",
+  },
+  {
+    label: "Officers",
+    href: "/officers"
+  },
+  {
+    label: "Contact us",
+    href: "/wip"
+  },
+  {
+    label: "Calendar",
+    href: "/wip"
+  },
+  {
+    label: "Admin",
+    children: [
+      {
+        label: "View submissions",
+        subLabel:
+          "Approve or deny submitted hours",
+        href: "/admin/review",
+      },
+      {
+        label: "Manage volunteering events",
+        subLabel: "Add or delete volunteering events users can select when submitting hours",
+        href: "/admin/events",
+      },
+      {
+        label: "Users (WIP)",
+        subLabel: "Manage users and their hours",
+        href: "/admin/users"
+      }
+    ],
   }
 ];

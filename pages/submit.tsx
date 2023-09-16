@@ -10,7 +10,7 @@ import styles from "../styles/SubmitHours.module.css";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-const BUCKET_URL = "https://cdn.funny-bunny.ninja/";
+const BUCKET_URL = "https://cdn.usercontent.cincokey.club";
 
 interface Event {
   _id: string;

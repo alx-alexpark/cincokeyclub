@@ -10,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
@@ -30,6 +31,7 @@ export default function Leaderboard() {
     console.log(data);
     return (
       <div>
+        <Navbar />
         <Center height="100vh" width="100vw">
           <Flex flexDir="column">
             <Text fontSize="3.5em">Leaderboard</Text>
