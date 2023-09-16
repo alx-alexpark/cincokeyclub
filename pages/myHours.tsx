@@ -14,6 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 interface Event {
   hours: number;
@@ -50,6 +51,7 @@ export default function MyHours() {
   if (session) {
     return (
       <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
+        <Navbar />
         <main
           style={{ backgroundColor: "transparent", background: "transparent" }}
         >

@@ -20,7 +20,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
 import Image from "next/image";
@@ -28,16 +28,20 @@ import Image from "next/image";
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   let { status } = useSession();
+  let session = useSession();
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (status == "authenticated") {
+    if (session) {
       axios.get("/api/isadmin").then(data => {
+        console.log(data);
         if (data.data.admin) {
           NAV_ITEMS = NAV_ITEMS_ADMIN;
+          setValue(value => value + 1);
         }
       })
     }
-  }, []);
+  },[]);
 
   return (
     <Box position="absolute" top="0" left="0">
@@ -294,6 +298,10 @@ interface NavItem {
 
 let NAV_ITEMS: Array<NavItem> = [
   {
+    label: "Home",
+    href: "/"
+  },
+  {
     label: "Volunteer hours",
     children: [
       {
@@ -305,7 +313,7 @@ let NAV_ITEMS: Array<NavItem> = [
       {
         label: "Check your hours",
         subLabel: "See how many hours you have accumulated, and their status.",
-        href: "/myEvents",
+        href: "/myHours",
       },
       {
         label: "Hours leaderboard",
@@ -334,6 +342,10 @@ let NAV_ITEMS: Array<NavItem> = [
 
 const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
+    label: "Home",
+    href: "/"
+  },
+  {
     label: "Volunteer hours",
     children: [
       {
@@ -345,7 +357,7 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
       {
         label: "Check your hours",
         subLabel: "See how many hours you have accumulated, and their status.",
-        href: "/myEvents",
+        href: "/myHours",
       },
       {
         label: "Hours leaderboard",
