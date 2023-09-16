@@ -10,7 +10,7 @@ import styles from "../styles/SubmitHours.module.css";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-const BUCKET_URL = "https://cdn.usercontent.cincokey.club";
+const BUCKET_URL = "https://cdn.usercontent.cincokey.club/";
 
 interface Event {
   _id: string;
@@ -23,7 +23,7 @@ interface Event {
 export default function SubmitHours() {
   const [file, setFile] = useState<any>();
   const [uploadingStatus, setUploadingStatus] = useState<any>();
-  const [uploadedFile, setUploadedFile] = useState<any>();
+  const [uploadedFile, setUploadedFile] = useState<any>(undefined);
   const { data: session, status } = useSession();
   const [eventdata, setEventdata] = useState<[]>([]);
 

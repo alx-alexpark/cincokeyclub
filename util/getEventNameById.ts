@@ -6,7 +6,7 @@ export default async function getEventNameById(id: String) {
       const collection = db.collection("events");
       const allEvents = await collection.find().toArray();
       for (let i = 0; i < allEvents.length; i++) {
-          if (allEvents[i].id === id) {
+          if (allEvents[i].id == id) {
               return allEvents[i].name;
           }
       }
