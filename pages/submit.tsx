@@ -56,10 +56,8 @@ export default function SubmitHours() {
   const uploadFile = async () => {
     setUploadingStatus("Uploading the file to our servers");
 
-    let randomFileName = uuidv4();
-
     let { data } = await axios.post("/api/getPresignedURL", {
-      name: randomFileName + "." + file.name.split(".")[1],
+      name: file.name,
       type: file.type,
     });
 
@@ -74,7 +72,7 @@ export default function SubmitHours() {
     });
 
     setUploadedFile(
-      BUCKET_URL + randomFileName + "." + file.name.split(".")[1]
+      BUCKET_URL + data.filename
     );
     setFile(null);
     setUploadingStatus("File uploaded successfully");

@@ -48,68 +48,79 @@ export default function AdminPanel() {
       <main className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
         <Navbar />
 
-        {requests.length == 0 && <h1>There are no more hour submissions for you to process</h1>}
-        {requests.map((req: HoursRequest) => (
-          <Card key={uuidv4()}>
-            <Flex
-              className="flex items-center container flex-col"
-              width="auto"
-              padding="0.5em"
-              borderRadius="1em"
-            >
-              <img
-                src={req.picture}
-                style={{
-                  display: "block",
-                  maxWidth: "100%",
-                  maxHeight: "200px",
-                  margin: "auto",
-                  borderRadius: "0.5em",
-                }}
-              />
-              <p>{req.hours} Hours @ {req.eventName}</p>
-              <p>Submitted by {req.user}</p>
+        {requests.length == 0 && (
+          <h1>There are no more hour submissions for you to process</h1>
+        )}
+        {requests.map((req: HoursRequest) => {
 
+          return (
+            <Card key={uuidv4()}>
               <Flex
-                alignItems="stretch"
-                flexDir="row"
-                justifyContent="stretch"
-                flex="1"
+                className="flex items-center container flex-col"
+                width="auto"
+                padding="0.5em"
+                borderRadius="1em"
               >
-                <Button
-                  size="md"
-                  variant="solid"
-                  backgroundColor="#66FF00"
-                  onClick={async () => {
-                    await axios.post("/api/approveOrDeny", {
-                      status: true,
-                      id: req.eventId,
-                      email: req.userEmail,
-                    });
-                    setRequests(requests.filter((r: HoursRequest) => r.uuid != req.uuid));
+                <img
+                  src={req.picture}
+                  style={{
+                    display: "block",
+                    maxWidth: "100%",
+                    maxHeight: "200px",
+                    margin: "auto",
+                    borderRadius: "0.5em",
                   }}
+                />
+                <p>
+                  {req.hours} Hours @ {req.eventName}
+                </p>
+                <p>Submitted by {req.user}</p>
+
+                <Flex
+                  alignItems="stretch"
+                  flexDir="row"
+                  justifyContent="stretch"
+                  flex="1"
                 >
-                  Approve
-                </Button>
-                <Button
-                  size="md"
-                  variant="solid"
-                  backgroundColor="#FF0800"
-                  onClick={async () => {
-                    await axios.post("/api/approveOrDeny", {
-                      status: "deny",
-                      id: req.eventId,
-                      email: req.userEmail,
-                    });
-                    setRequests(requests.filter((r: HoursRequest) => r.uuid != req.uuid));
-                  }}
-                >
-                  Deny
-                </Button>
+                  <Button
+                    size="md"
+                    variant="solid"
+                    backgroundColor="#66FF00"
+                    onClick={async () => {
+                      await axios.post("/api/approveOrDeny", {
+                        status: true,
+                        id: req.eventId,
+                        email: req.userEmail,
+                      });
+                      setRequests(
+                        requests.filter((r: HoursRequest) => r.uuid != req.uuid)
+                      );
+                    }}
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    size="md"
+                    variant="solid"
+                    backgroundColor="#FF0800"
+                    onClick={async () => {
+                      await axios.post("/api/approveOrDeny", {
+                        status: "deny",
+                        id: req.eventId,
+                        email: req.userEmail,
+                      });
+                      setRequests(
+                        requests.filter((r: HoursRequest) => r.uuid != req.uuid)
+                      );
+                    }}
+                  >
+                    Deny
+                  </Button>
+                </Flex>
               </Flex>
-            </Flex>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </main>
     );
   }
