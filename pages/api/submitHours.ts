@@ -31,7 +31,7 @@ export default async function submitHours(
         },
       }
     );
-    res.json({ success: true });
+    res.redirect(302, '/myHours');
   } else {
     res.status(403).json({
       error: "Not authenicated",

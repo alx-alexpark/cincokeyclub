@@ -77,9 +77,9 @@ export default function WithSubnavigation() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Image src="/android-chrome-192x192.png" alt={"The Cinco Key Club logo"} width="32" height="32" style={{maxWidth: "100%", alignSelf: 'start'}}/>
+            
           </Text> */}
-
+          {/* <Image src="/android-chrome-192x192.png" alt={"The Cinco Key Club logo"} width="16" height="16" style={{maxWidth: "100%", alignSelf: 'start'}}/> */}
           <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
           </Flex>
@@ -302,42 +302,17 @@ let NAV_ITEMS: Array<NavItem> = [
     href: "/"
   },
   {
-    label: "Volunteer hours",
-    children: [
-      {
-        label: "Submit Hours",
-        subLabel:
-          "Upload a picture of you volunteering in order to receive hours",
-        href: "/submit",
-      },
-      {
-        label: "Check your hours",
-        subLabel: "See how many hours you have accumulated, and their status.",
-        href: "/myHours",
-      },
-      {
-        label: "Hours leaderboard",
-        subLabel: "Compete to have the highest number of volunteer hours!",
-        href: "/leaderboard"
-      }
-    ],
+    label: "Submit Hours",
+    href: "/submit",
   },
   {
-    label: "Gallery",
-    href: "/wip",
+    label: "Check your hours",
+    href: "/myHours",
   },
   {
-    label: "Officers",
-    href: "/officers"
+    label: "Hours leaderboard",
+    href: "/leaderboard"
   },
-  {
-    label: "Contact us",
-    href: "/wip"
-  },
-  {
-    label: "Calendar",
-    href: "/wip"
-  }
 ];
 
 const NAV_ITEMS_ADMIN: Array<NavItem> = [
@@ -346,61 +321,19 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     href: "/"
   },
   {
-    label: "Volunteer hours",
-    children: [
-      {
-        label: "Submit Hours",
-        subLabel:
-          "Upload a picture of you volunteering in order to receive hours",
-        href: "/submit",
-      },
-      {
-        label: "Check your hours",
-        subLabel: "See how many hours you have accumulated, and their status.",
-        href: "/myHours",
-      },
-      {
-        label: "Hours leaderboard",
-        subLabel: "Compete to have the highest number of volunteer hours!",
-        href: "/leaderboard"
-      }
-    ],
+    label: "Submit Hours",
+    href: "/submit",
   },
   {
-    label: "Gallery",
-    href: "/wip",
+    label: "Check your hours",
+    href: "/myHours",
   },
   {
-    label: "Officers",
-    href: "/officers"
-  },
-  {
-    label: "Contact us",
-    href: "/wip"
-  },
-  {
-    label: "Calendar",
-    href: "/wip"
+    label: "Hours leaderboard",
+    href: "/leaderboard"
   },
   {
     label: "Admin",
-    children: [
-      {
-        label: "View submissions",
-        subLabel:
-          "Approve or deny submitted hours",
-        href: "/admin/review",
-      },
-      {
-        label: "Manage volunteering events",
-        subLabel: "Add or delete volunteering events users can select when submitting hours",
-        href: "/admin/events",
-      },
-      {
-        label: "Users (WIP)",
-        subLabel: "Manage users and their hours",
-        href: "/admin/users"
-      }
-    ],
+    href: "/admin/review"
   }
 ];
