@@ -82,7 +82,7 @@ export default function SubmitHours() {
         <main
           style={{ backgroundColor: "transparent", background: "transparent" }}
         >
-          <p className="font-semibold">Please select a file to upload</p>
+          <p className="font-semibold">Upload a picture of you volunteering.<br/>Make sure it includes your face!</p>
 
           <input
             type="file"
