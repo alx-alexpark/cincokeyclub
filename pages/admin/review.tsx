@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from 'react-toastify';
 
 interface HoursRequest {
   hours: string;
@@ -16,6 +17,7 @@ interface HoursRequest {
   userEmail: string;
   eventName: string;
   uuid: string;
+  comment: string;
 }
 
 export default function AdminPanel() {
@@ -72,9 +74,10 @@ export default function AdminPanel() {
                   }}
                 />
                 <p>
-                  {req.hours} Hours @ {req.eventName}
+                  {req.hours} Hour{parseFloat(req.hours) > 1 && "s"} @ {req.eventName}
                 </p>
                 <p>Submitted by {req.user}</p>
+                {req.comment?.length != 0 && <p>User submitted comment: &quot;{req.comment}&quot;</p>}
 
                 <Flex
                   alignItems="stretch"

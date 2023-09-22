@@ -32,8 +32,9 @@ export default function SubmitHours() {
       hours: 0,
       event: "default",
       image: null,
+      comment: ""
     },
-    onSubmit: async (values: { hours: number; event: string; image: any }) => {
+    onSubmit: async (values: { hours: number; event: string; image: any; comment: string; }) => {
       const actuallySentData = structuredClone(values);
       actuallySentData.image = uploadedFile;
       await axios.post("/api/submitHours", actuallySentData);
@@ -126,6 +127,7 @@ export default function SubmitHours() {
               type="text"
               id="hours"
               name="hours"
+              required
               onChange={formik.handleChange}
               value={formik.values.hours}
               className="text-black rounded-md pl-2 p-2 text-md"
@@ -138,7 +140,8 @@ export default function SubmitHours() {
               id="event"
               onChange={formik.handleChange}
               value={formik.values.event}
-              className="text-black mb-4 rounded-md pl-2 text-md p-2"
+              required
+              className="text-black mb-1 rounded-md pl-2 text-md p-2"
             >
               <option value="default">Pick an event</option>
               {eventdata?.map((event: Event) => (
@@ -147,6 +150,19 @@ export default function SubmitHours() {
                 </option>
               ))}
             </select>
+            <label htmlFor="comment" className="mt-2 font-semibold">
+              Extra Info (Optional)
+            </label>
+            <input
+              placeholder="Anything else you want us to know."
+              type="text"
+              id="comment"
+              name="comment"
+              onChange={formik.handleChange}
+              value={formik.values.comment}
+
+              className="text-black rounded-md pl-2 p-2 mb-3 text-md"
+            />
             <input
               type="submit"
               disabled={uploadedFile == undefined || formik.isSubmitting}
