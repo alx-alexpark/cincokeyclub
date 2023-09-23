@@ -7,7 +7,14 @@ import {
   Center,
   Flex,
   Stack,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
   Text,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
@@ -36,31 +43,26 @@ export default function Leaderboard() {
           <Flex flexDir="column" minH="100%">
             <Text fontSize="3.5em">Leaderboard</Text>
             <Flex alignItems="center" justifyContent="center" flexDir="column">
+            <TableContainer backgroundColor="white" color="black" borderRadius="15px">
+            <Table variant="striped" colorScheme="teal">
+                <Thead>
+                  <Tr>
+                    <Th isNumeric>Rank</Th>
+                    <Th>Name</Th>
+                    <Th isNumeric>Hours</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
               {data.map((person) => (
-                <Card
-                  minWidth="50vw"
-                  direction="row"
-                  overflow="hidden"
-                  variant="outline"
-                  marginTop="0.5em"
-                  marginBottom="0.5em"
-                  key={uuidv4()}
-                >
-                  <img
-                    style={{ objectFit: "cover", maxWidth: "200px" }}
-                    src={person.picture}
-                    alt="Person's profile picture"
-                  />
-                  <Stack>
-                    <CardBody>
-                      <Text fontSize="1.25em" fontWeight="Bold">
-                        {person.name}
-                      </Text>
-                      <Text fontSize="1em">{person.hours} Hours</Text>
-                    </CardBody>
-                  </Stack>
-                </Card>
+                <Tr key={uuidv4()}>
+                <Td isNumeric>{data.indexOf(person)+1}</Td>
+                <Td>{person.name}</Td>
+                <Td isNumeric>{person.hours}</Td>
+              </Tr>
               ))}
+              </Tbody>
+              </Table>
+            </TableContainer>
             </Flex>
           </Flex>
         </Center>

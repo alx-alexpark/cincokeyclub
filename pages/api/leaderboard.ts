@@ -39,7 +39,7 @@ export default async function getLeaderboard(
             }
           });
         }
-        if (userHours > 0) {
+        if (userHours > -1) {
           leaderboard.push({
             name: user.name,
             hours: userHours,
