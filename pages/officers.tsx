@@ -101,6 +101,12 @@ export default function OfficersPage() {
             desc="Hello, I’m Katherine and i’ll be your general manager. I’m a Senior and super excited for this year. I love going to concerts, reading and the color purple. I also really like trying out new things and go to new places. "
             bgPosY="-65%"
           />
+          <OfficerCard 
+            name="Tobi Ladeji"
+            desc="Hi I’m Tobi. I’m a junior and I love bake and go running. My favorite candy is sour patch kids."
+            position="General Manager"
+            photoSrc="/officerPhotos/tobi.jpeg"
+          />
 
         </Flex>
       </Flex>
