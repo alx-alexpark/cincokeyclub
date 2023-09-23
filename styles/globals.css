@@ -16,4 +16,5 @@ main {
       var(--background-end-rgb)
     )
     var(--background-start-rgb);
+  background-attachment: fixed;
 }
