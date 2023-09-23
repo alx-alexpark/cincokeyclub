@@ -39,11 +39,14 @@ export default async function getLeaderboard(
             }
           });
         }
-        leaderboard.push({
-          name: user.name,
-          hours: userHours,
-          picture: user.image,
-        });
+        if (userHours > 0) {
+          leaderboard.push({
+            name: user.name,
+            hours: userHours,
+            picture: user.image,
+          });
+        }
+        
       }
     });
     leaderboard.sort((a, b) => a.hours - b.hours);
