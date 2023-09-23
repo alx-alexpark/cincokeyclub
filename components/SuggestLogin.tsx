@@ -1,10 +1,13 @@
-import { Container, Text, Center, Stack, Button } from "@chakra-ui/react";
+import { Container, Text, Center, Stack, Button, Flex } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
+import Navbar from "./Navbar";
 
 export default function SuggestLogin() {
   return (
+    <Flex flexDir="column" minHeight="100vh">
+      <Navbar />
     <Container
-      height="100vh"
+      flex="1"
       width="100vw"
       display="flex"
       alignItems="center"
@@ -18,5 +21,6 @@ export default function SuggestLogin() {
         </Stack>
       </Center>
     </Container>
+    </Flex>
   );
 }
