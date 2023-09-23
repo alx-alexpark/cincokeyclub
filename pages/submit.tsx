@@ -170,7 +170,7 @@ export default function SubmitHours() {
               Extra Info (Optional)
             </label>
             <textarea
-              placeholder="Anything else you want us to know."
+              placeholder="For multi-day events please provide date and time."
               id="comment"
               name="comment"
               onChange={formik.handleChange}
