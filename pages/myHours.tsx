@@ -12,6 +12,15 @@ import {
   HStack,
   StackDivider,
   Text,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -50,10 +59,9 @@ export default function MyHours() {
 
   if (session) {
     return (
-      <div className="min-h-screen"><Navbar />
-      <div className="container flex items-center p-4 mx-auto justify-center flex-col" style={{minHeight: "100%"}}>
-        
-       
+      <Flex className="min-h-screen" flexDir="column">
+        <Navbar />
+        <div className="container flex items-center p-4 mx-auto justify-center flex-col flex-1">
           <Flex
             flexDirection="column"
             alignItems="center"
@@ -70,28 +78,41 @@ export default function MyHours() {
             alignItems="center"
             justifyContent="center"
           >
-            <br />
+
             <Text fontSize="1.5rem">Events you have attended</Text>
-            {events != undefined ? events.map((event: Event) => {
-              // const nameResponse = axios.get(`/api/getEventNameById?eventId=${event.eventId}`)
-              return (<Card direction={{ base: "column", sm: "row" }} key={uuidv4()}>
-                <CardBody>
-                  <HStack
-                    align="stretch"
-                    divider={<StackDivider borderColor="gray.200" />}
-                    spacing={2}
-                  >
-                    <Text>{event.eventName}</Text>
-                    <Text>{event.hours} Hours</Text>
-                    <Text>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Text>
-                  </HStack>
-                </CardBody>
-              </Card>
-              )
-            }) : <h1>You have not submitted any hours yet</h1>}
+            <TableContainer backgroundColor="white" color="black" borderRadius="15px">
+              <Table variant="striped" colorScheme="teal">
+                <Thead>
+                  <Tr>
+                    <Th>Event name</Th>
+                    <Th isNumeric>Hours</Th>
+                    <Th>Status</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {events != undefined ? (
+                    events.map((event: Event) => {
+                      return (
+                        <Tr key={uuidv4()}>
+                          <Td>{event.eventName}</Td>
+                          <Td isNumeric>{event.hours}</Td>
+                          <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
+                        </Tr>
+                      );
+                    })
+                  ) : (
+                    <Tr>
+                      <Td>Loading</Td>
+                      <Td>Loading</Td>
+                      <Td isNumeric>-1</Td>
+                    </Tr>
+                  )}
+                </Tbody>
+              </Table>
+            </TableContainer>
           </Flex>
-      </div>
-      </div>
+        </div>
+      </Flex>
     );
   } else if (status == "loading") {
     return <LoadingScreen />;

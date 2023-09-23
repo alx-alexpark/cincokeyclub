@@ -32,9 +32,14 @@ export default function SubmitHours() {
       hours: 0,
       event: "default",
       image: null,
-      comment: ""
+      comment: "",
     },
-    onSubmit: async (values: { hours: number; event: string; image: any; comment: string; }) => {
+    onSubmit: async (values: {
+      hours: number;
+      event: string;
+      image: any;
+      comment: string;
+    }) => {
       const actuallySentData = structuredClone(values);
       actuallySentData.image = uploadedFile;
       await axios.post("/api/submitHours", actuallySentData);
@@ -83,7 +88,11 @@ export default function SubmitHours() {
         <main
           style={{ backgroundColor: "transparent", background: "transparent" }}
         >
-          <p className="font-semibold">Upload a picture of you volunteering.<br/>Make sure it includes your face!</p>
+          <p className="font-semibold">
+            Upload a picture of you volunteering.
+            <br />
+            Make sure it includes your face!
+          </p>
 
           <input
             type="file"
@@ -116,15 +125,18 @@ export default function SubmitHours() {
               width={128}
             />
           )}
-          <form onSubmit={(e) => {
-            formik.handleSubmit(e);
-            window.location.replace("myHours");
-          }} className="flex flex-col">
+          <form
+            onSubmit={(e) => {
+              formik.handleSubmit(e);
+              window.location.replace("myHours");
+            }}
+            className="flex flex-col"
+          >
             <label htmlFor="hours" className="mt-2 font-semibold">
               Hours
             </label>
             <input
-              type="text"
+              type="number"
               id="hours"
               name="hours"
               required
@@ -153,14 +165,12 @@ export default function SubmitHours() {
             <label htmlFor="comment" className="mt-2 font-semibold">
               Extra Info (Optional)
             </label>
-            <input
+            <textarea
               placeholder="Anything else you want us to know."
-              type="text"
               id="comment"
               name="comment"
               onChange={formik.handleChange}
               value={formik.values.comment}
-
               className="text-black rounded-md pl-2 p-2 mb-3 text-md"
             />
             <input

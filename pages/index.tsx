@@ -10,10 +10,10 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
   return (
-    <div style={{minHeight: "100vh"}}>
+    <Flex style={{minHeight: "100vh"}} flexDir="column">
       <Navbar />
   
-      <Flex flexDir="column" alignItems="center" justifyContent='center' minHeight="100vh">
+      <Flex flexDir="column" alignItems="center" justifyContent='center' flex="1">
         <Text fontSize="3rem" fontWeight="extrabold" >
           Cinco Key Club
         </Text>
@@ -98,6 +98,6 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-    </div>
+    </Flex>
   );
 }
