@@ -102,9 +102,9 @@ export default function MyHours() {
                     })
                   ) : (
                     <Tr>
-                      <Td>Loading</Td>
-                      <Td>Loading</Td>
-                      <Td isNumeric>-1</Td>
+                      <Td>*</Td>
+                      <Td>*</Td>
+                      <Td>*</Td>
                     </Tr>
                   )}
                 </Tbody>
