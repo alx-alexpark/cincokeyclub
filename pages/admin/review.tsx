@@ -47,9 +47,9 @@ export default function AdminPanel() {
 
   if (isAdmin && session) {
     return (
-      <div>
+      <Flex flexDirection="column" minH="100vh">
         <Navbar />
-        <main className="container flex items-center p-4 mx-auto justify-center flex-col h-full">
+        <div className="container flex items-center p-4 mx-auto justify-center flex-col h-full" style={{flex: "1"}}>
           {requests.length == 0 && (
             <h1>There are no more hour submissions for you to process</h1>
           )}
@@ -130,8 +130,8 @@ export default function AdminPanel() {
               </Card>
             );
           })}
-        </main>
-      </div>
+        </div>
+      </Flex>
     );
   }
 

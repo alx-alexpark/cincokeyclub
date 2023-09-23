@@ -23,7 +23,7 @@ export default function OfficersPage() {
           flexDir="row"
           gap="1em"
           minWidth="85vw"
-          justifyContent="space-evenly"
+          justifyContent="center"
           flexWrap="wrap"
         >
           <OfficerCard
@@ -85,3 +85,4 @@ export default function OfficersPage() {
     </Flex>
   );
 }
+
