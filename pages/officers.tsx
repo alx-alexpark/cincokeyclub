@@ -67,11 +67,25 @@ export default function OfficersPage() {
             desc="i love keyclub"
           />
           <OfficerCard
+            name="Jerry Zhou"
+            photoSrc="/officerPhotos/jerry.jpeg"
+            position="Treasurer"
+            desc="Hi, I’m Jerry and I’m a senior and a treasurer for key club. A fun fact about me is that I hate tomatoes."
+            bgPosY="-50%"
+          />
+          <OfficerCard
             name="Sofia Suarez"
             photoSrc="/officerPhotos/sofia.jpeg"
             position="Secretary"
             desc="Hello, I am sofia! Fun fact about me is that I love to watch baseball with my family and I hate horror movies (i'm too scared). "
             bgPosY="-50%"
+          />
+          <OfficerCard
+            name="Felice Bulos"
+            photoSrc="/officerPhotos/felice.jpeg"
+            position="Editor"
+            desc="Hello! I’m your 2023-24 editor, I’m currently a junior and I don’t really have much to say about myself but I like to draw and play tennis! I hope everyone has a great year in key club!^-^"
+            bgPosY="-25%"
           />
           <OfficerCard
             name="Alex Park"
@@ -80,6 +94,14 @@ export default function OfficersPage() {
             desc="Hi! I made this website. I am interested in programming, system administration, and planes."
             bgPosY="0%"
           />
+           <OfficerCard
+            name="Katherine"
+            photoSrc="/officerPhotos/katherine.jpeg"
+            position="General Manager"
+            desc="Hello, I’m Katherine and i’ll be your general manager. I’m a Senior and super excited for this year. I love going to concerts, reading and the color purple. I also really like trying out new things and go to new places. "
+            bgPosY="-65%"
+          />
+
         </Flex>
       </Flex>
     </Flex>

@@ -31,18 +31,20 @@ export default async function getLeaderboard(
     console.log(allUsers);
     allUsers.forEach((user) => {
       let userHours = 0.0;
-      if (user.events != undefined) {
-        user.events.forEach((event: Event) => {
-          if (event.approved) {
-            userHours += event.hours;
-          }
+      if (user.leaderboardHide != true) {
+        if (user.events != undefined) {
+          user.events.forEach((event: Event) => {
+            if (event.approved) {
+              userHours += event.hours;
+            }
+          });
+        }
+        leaderboard.push({
+          name: user.name,
+          hours: userHours,
+          picture: user.image,
         });
       }
-      leaderboard.push({
-        name: user.name,
-        hours: userHours,
-        picture: user.image,
-      });
     });
     leaderboard.sort((a, b) => a.hours - b.hours);
     leaderboard.reverse();
