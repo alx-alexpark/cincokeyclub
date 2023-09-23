@@ -7,8 +7,9 @@ import { Field, useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import styles from "../styles/SubmitHours.module.css";
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 const BUCKET_URL = "https://cdn.usercontent.cincokey.club/";
 
@@ -84,9 +85,12 @@ export default function SubmitHours() {
 
   if (session) {
     return (
-      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
+      <Flex minH="100vh" flexDir="column">
+        <Navbar />
+      <div className="container flex items-center p-4 mx-auto flex-1 justify-center flex-col">
+        
         <main
-          style={{ backgroundColor: "transparent", background: "transparent" }}
+          style={{ backgroundColor: "transparent", background: "transparent",}}
         >
           <p className="font-semibold">
             Upload a picture of you volunteering.
@@ -175,6 +179,7 @@ export default function SubmitHours() {
             />
             <input
               type="submit"
+              style={{cursor: "pointer"}}
               disabled={uploadedFile == undefined || formik.isSubmitting}
               className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
             />
@@ -186,6 +191,7 @@ export default function SubmitHours() {
           </Link>
         </main>
       </div>
+      </Flex>
     );
   } else if (status == "loading") {
     return <LoadingScreen />;

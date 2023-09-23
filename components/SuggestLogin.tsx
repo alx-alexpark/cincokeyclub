@@ -14,6 +14,7 @@ export default function SuggestLogin() {
         <Stack>
           <Text fontSize="4xl">Auth required</Text>
           <Button onClick={() => signIn("google")}>Sign in</Button>
+          <Text cursor="pointer" onClick={() => window.history.back()}><u>Go back?</u></Text>
         </Stack>
       </Center>
     </Container>

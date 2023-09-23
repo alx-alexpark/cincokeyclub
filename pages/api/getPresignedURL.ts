@@ -36,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const fileParams = {
       Bucket: process.env.BUCKET_NAME,
       Key: newName,
-      Expires: 600,
+      Expires: 120,
       ContentType: type,
     };
 
