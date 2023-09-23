@@ -10,18 +10,17 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-30">
+    <div style={{minHeight: "100vh"}}>
       <Navbar />
-      <div></div>
-      <Flex flexDir="column" alignItems="center" justifyContent='center'>
-        <Text fontSize="3rem" fontWeight="extrabold" marginTop="1em">
+  
+      <Flex flexDir="column" alignItems="center" justifyContent='center' minHeight="100vh">
+        <Text fontSize="3rem" fontWeight="extrabold" >
           Cinco Key Club
         </Text>
         <Text fontSize="1.25rem">Division 3W - TO Key Club</Text>
         <Image src="/kc.png" width="300" height="300" alt="Key Club Logo" />
         <Button onClick={() => router.push('/submit')}>Submit your hours!</Button>
       </Flex>
-      <div></div>
 
       
 
@@ -99,6 +98,6 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-    </main>
+    </div>
   );
 }

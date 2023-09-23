@@ -50,15 +50,15 @@ export default function MyHours() {
 
   if (session) {
     return (
-      <div className="container flex items-center p-4 mx-auto min-h-screen justify-center flex-col">
-        <Navbar />
-        <main
-          style={{ backgroundColor: "transparent", background: "transparent" }}
-        >
+      <div className="min-h-screen"><Navbar />
+      <div className="container flex items-center p-4 mx-auto justify-center flex-col" style={{minHeight: "100%"}}>
+        
+       
           <Flex
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
+            minH="100%"
           >
             <Text fontSize="4rem" fontWeight="extrabold">
               {totalHours}
@@ -90,7 +90,7 @@ export default function MyHours() {
               )
             }) : <h1>You have not submitted any hours yet</h1>}
           </Flex>
-        </main>
+      </div>
       </div>
     );
   } else if (status == "loading") {

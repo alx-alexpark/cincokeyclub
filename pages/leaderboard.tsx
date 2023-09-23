@@ -30,10 +30,10 @@ export default function Leaderboard() {
   if (data) {
     console.log(data);
     return (
-      <div>
+      <div className="min-h-screen">
         <Navbar />
-        <Center height="100vh" width="100vw">
-          <Flex flexDir="column">
+        <Center width="100vw" minH="100%">
+          <Flex flexDir="column" minH="100%">
             <Text fontSize="3.5em">Leaderboard</Text>
             <Flex alignItems="center" justifyContent="center" flexDir="column">
               {data.map((person) => (
