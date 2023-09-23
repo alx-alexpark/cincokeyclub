@@ -6,17 +6,19 @@ interface OfficerCardProps {
     name: string;
     position: string;
     desc: string;
+    bgPosY?: string;
+    bgPosX?: string;
 }
 
-export default function OfficerCard({ photoSrc, name, position, desc }: OfficerCardProps) {
+export default function OfficerCard({ photoSrc, name, position, desc, bgPosX, bgPosY}: OfficerCardProps) {
     return (
-        <Card borderRadius="12" minHeight="27em" maxWidth="20rem" overflow="hidden">
-            <div style={{ width: '100%', height: '100%', position: 'relative', display: 'flex', flexGrow: '1', borderRadius: '15'}}>
+        <Card borderRadius="12" height="27em" width="20rem" overflow="hidden">
+            <div style={{ width: '100%', height: '100%',  position: 'relative', borderRadius: '15', overflow: "hidden"}}>
                 <Image
-                    style={{ borderRadius: '15' }}
-                    fill
-                    objectFit='fill'
+                    style={{ borderRadius: '15', objectFit: "cover", position: "relative", top: bgPosY ?? 0, left: bgPosX ?? 0}}
                     src={photoSrc}
+                    width="400"
+                    height="400"
                     alt='Officer Photo'
                 />
             </div>
