@@ -43,7 +43,7 @@ export default function Leaderboard() {
           <Flex flexDir="column" minH="100%">
             <Text fontSize="3.5em">Leaderboard</Text>
             <Flex alignItems="center" justifyContent="center" flexDir="column">
-            <TableContainer backgroundColor="white" color="black" borderRadius="15px">
+            <TableContainer backgroundColor="white" color="black" borderRadius="15px" marginBottom="2.3em">
             <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
