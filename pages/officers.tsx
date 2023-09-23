@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import OfficerCard from "@/components/OfficerCard";
 import { Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function OfficersPage() {
   return (
@@ -8,7 +9,7 @@ export default function OfficersPage() {
       <Navbar />
       <Flex
         flex="1"
-        height="100vh"
+        minHeight="100vh"
         width="100vw"
         alignItems="center"
         justifyContent="center"
@@ -53,12 +54,6 @@ export default function OfficersPage() {
             desc="Hello! I'll be a senior entering the 2023 - 2024 school year as the historian for Key Club.  I'm very tired."
           />
           <OfficerCard
-            name="Sam Venegas"
-            photoSrc="/officerPhotos/sam.jpeg"
-            position="Treasurer"
-            desc="i love keyclub"
-          />
-          <OfficerCard
             name="Collin Le"
             photoSrc="/officerPhotos/collin.jpeg"
             position="Historian"
@@ -66,11 +61,24 @@ export default function OfficersPage() {
             bgPosY="-25%"
           />
           <OfficerCard
+            name="Sam Venegas"
+            photoSrc="/officerPhotos/sam.jpeg"
+            position="Treasurer"
+            desc="i love keyclub"
+          />
+          <OfficerCard
             name="Sofia Suarez"
             photoSrc="/officerPhotos/sofia.jpeg"
             position="Secretary"
             desc="Hello, I am sofia! Fun fact about me is that I love to watch baseball with my family and I hate horror movies (i'm too scared). "
             bgPosY="-50%"
+          />
+          <OfficerCard
+            name="Alex Park"
+            photoSrc="/officerPhotos/sus.jpg"
+            position="Webmaster"
+            desc="Hi! I made this website. I am interested in programming, system administration, and planes."
+            bgPosY="0%"
           />
         </Flex>
       </Flex>

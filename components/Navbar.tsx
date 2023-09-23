@@ -313,6 +313,10 @@ let NAV_ITEMS: Array<NavItem> = [
     label: "Hours leaderboard",
     href: "/leaderboard"
   },
+  {
+    label: "Officers",
+    href: "/officers"
+  }
 ];
 
 const NAV_ITEMS_ADMIN: Array<NavItem> = [
@@ -331,6 +335,10 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
     label: "Hours leaderboard",
     href: "/leaderboard"
+  },
+  {
+    label: "Officers",
+    href: "/officers"
   },
   {
     label: "Admin",
