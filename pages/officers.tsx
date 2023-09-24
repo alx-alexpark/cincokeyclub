@@ -58,7 +58,7 @@ export default function OfficersPage() {
             photoSrc="/officerPhotos/vivian.jpeg"
             position="Historian"
             desc="Hey guys! I’m Vivian and I’m your 2023-2034 Key Club Historian :) About myself,  I love listening to music and attending concerts. I’m also a big foodie and love trying new dishes!"
-            bgPosY="-50%"
+            bgPosY="-40%"
           />
           <OfficerCard
             name="Sam Venegas"
