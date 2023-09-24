@@ -11,7 +11,7 @@ interface Event {
   hours: number;
   event: string;
   approved: null | boolean;
-  id: string;
+  eventId: string;
   user: string;
   userImage: string;
   code?: number;
@@ -45,13 +45,16 @@ export default async function generalMeeting(
       res.status(500).json({ error: "invalid code" });
       return;
     }
+    console.log(eventId)
 
     const you = await db
       .collection("users")
       .findOne({ email: session?.user?.email });
     if (you?.events != undefined) {
       const userEvents = you?.events as Event[];
-      if (!userEvents.find((e) => e.id == eventId)) {
+      console.log(userEvents.find((e) => e.eventId == eventId));
+      if (userEvents.find((e) => e.eventId == eventId)) {
+        console.log("ur sus");
         res
           .status(420)
           .json({
