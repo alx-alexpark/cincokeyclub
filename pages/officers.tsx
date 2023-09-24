@@ -54,11 +54,11 @@ export default function OfficersPage() {
             desc="Hello! I'll be a senior entering the 2023 - 2024 school year as the historian for Key Club.  I'm very tired."
           />
           <OfficerCard
-            name="Collin Le"
-            photoSrc="/officerPhotos/collin.jpeg"
+            name="Vivian Quach"
+            photoSrc="/officerPhotos/vivian.jpeg"
             position="Historian"
-            desc="Hi, I am Collin, and I love playing the flute and going hiking (only if it's cold). I enjoy cooking big meals and gardening. Also, I have an old man's taste, so anything that is bitter and minimalistic. Give me a pillow, and I'll sleep anywhere."
-            bgPosY="-25%"
+            desc="Hey guys! I’m Vivian and I’m your 2023-2034 Key Club Historian :) About myself,  I love listening to music and attending concerts. I’m also a big foodie and love trying new dishes!"
+            bgPosY="-50%"
           />
           <OfficerCard
             name="Sam Venegas"
@@ -79,6 +79,13 @@ export default function OfficersPage() {
             position="Secretary"
             desc="Hello, I am sofia! Fun fact about me is that I love to watch baseball with my family and I hate horror movies (i'm too scared). "
             bgPosY="-50%"
+          />
+           <OfficerCard
+            name="Collin Le"
+            photoSrc="/officerPhotos/collin.jpeg"
+            position="Secretary"
+            desc="Hi, I am Collin, and I love playing the flute and going hiking (only if it's cold). I enjoy cooking big meals and gardening. Also, I have an old man's taste, so anything that is bitter and minimalistic. Give me a pillow, and I'll sleep anywhere."
+            bgPosY="-25%"
           />
           <OfficerCard
             name="Felice Bulos"

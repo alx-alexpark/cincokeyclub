@@ -185,8 +185,13 @@ export default function SubmitHours() {
             />
           </form>
           <Link href="/myHours">
-            <Text fontWeight="bold" fontSize="1.25rem">
+            <Text fontWeight="bold" fontSize="1.1rem">
               <u>See your previous hours</u>
+            </Text>
+          </Link>
+          <Link href="/gm">
+            <Text fontWeight="bold" fontSize="1.1rem">
+              <u>At a General Meeting?</u>
             </Text>
           </Link>
         </main>
