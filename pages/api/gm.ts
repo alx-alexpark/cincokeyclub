@@ -51,7 +51,7 @@ export default async function generalMeeting(
       .findOne({ email: session?.user?.email });
     if (you?.events != undefined) {
       const userEvents = you?.events as Event[];
-      if (userEvents.filter((e) => (e.id = eventId))) {
+      if (userEvents.filter((e) => e.id == eventId).length > 0) {
         res
           .status(420)
           .json({
