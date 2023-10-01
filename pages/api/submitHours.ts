@@ -23,7 +23,7 @@ export default async function submitHours(
       {
         $push: {
           events: {
-            hours: parseInt(hours),
+            hours: parseFloat(hours),
             picture: image,
             eventId: event,
             approved: null,
