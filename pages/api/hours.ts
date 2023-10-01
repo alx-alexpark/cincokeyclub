@@ -1,47 +1,55 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
+import { getServerSession } from "next-auth/next";
 
-interface Event {
-  image: string;
-  hours: number;
-  event: string;
-  approved: null | boolean;
-  id: string;
-  user: string;
-  userImage: string;
-}
+import { authOptions } from "./auth/[...nextauth]";
+import clientPromise from "@/lib/mongodb";
+import Event from "@/models/Event";
 
 export default async function getHours(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
+  // Get request parameters
+  let { userEmail } = req.body;
+
+  // Get session
   const session = await getServerSession(req, res, authOptions);
-    try {
-      let { userEmail } = req.body;
 
-      if (userEmail == undefined && session) {
-        userEmail = session.user?.email;
+  // Deny access if no session is active
+  if (!session) {
+    return res.status(403).json({
+      error: "Access Denied",
+    });
+  }
+
+  // Use session email if one isn't passed
+  if (userEmail == undefined) {
+    userEmail = session.user?.email;
+  }
+
+  // Fail if an email still doesn't exist
+  if (userEmail == undefined) {
+    return res.status(500).json({ error: "No user email provided" });
+  }
+
+  try {
+    // Get client deatils
+    const client = await clientPromise;
+    const db = client.db("auth");
+
+    // Get session user
+    const selUser = await db.collection("users").findOne({ email: userEmail });
+
+    // Sum the user's approved hours
+    let totalHours = 0.0;
+    selUser?.events.forEach((event: Event) => {
+      if (event.approved) {
+        totalHours += event.hours;
       }
+    });
 
-      if (userEmail == undefined) {
-        res.status(500).json({ error: "No user email provided" });
-      }
-
-      const client = await clientPromise;
-      const db = client.db("auth");
-      const selUser = await db
-        .collection("users")
-        .findOne({ email: userEmail });
-      let totalHours = 0.0;
-      selUser?.events.forEach((event: Event) => {
-        if (event.approved) {
-          totalHours += event.hours;
-        }
-      });
-      res.json({ hours: totalHours });
-    } catch (e) {
-      res.json({ error: e });
-    }
+    res.json({ hours: totalHours });
+  } catch (e) {
+    res.json({ error: e });
+  }
 }

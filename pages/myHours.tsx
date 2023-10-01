@@ -1,40 +1,24 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import Image from "next/image";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import {
-  Card,
-  CardBody,
   Flex,
-  HStack,
-  StackDivider,
   Text,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
 
-interface Event {
-  hours: number;
-  picture: String;
-  userImage: String;
-  approved: boolean;
-  user: String;
-  userEmail: String;
-  eventId: String;
-  eventName: String;
-}
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+
+import SuggestLogin from "@/components/SuggestLogin";
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import Event from "@/models/Event";
 
 export default function MyHours() {
   const { data: session, status } = useSession();
@@ -78,9 +62,12 @@ export default function MyHours() {
             alignItems="center"
             justifyContent="center"
           >
-
             <Text fontSize="1.5rem">Events you have attended</Text>
-            <TableContainer backgroundColor="white" color="black" borderRadius="15px">
+            <TableContainer
+              backgroundColor="white"
+              color="black"
+              borderRadius="15px"
+            >
               <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
@@ -96,7 +83,13 @@ export default function MyHours() {
                         <Tr key={uuidv4()}>
                           <Td>{event.eventName}</Td>
                           <Td isNumeric>{event.hours}</Td>
-                          <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
+                          <Td>
+                            {event.approved == null
+                              ? "Pending"
+                              : event.approved
+                              ? "Approved"
+                              : "Denied"}
+                          </Td>
                         </Tr>
                       );
                     })

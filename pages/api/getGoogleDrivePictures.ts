@@ -1,4 +1,3 @@
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 
@@ -17,18 +16,20 @@ const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 
 export default async function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
+  // Connect OAuth2 client
   const oauth2Client = new google.auth.OAuth2(
     process.env.PICS_CLIENT_ID ?? "sus",
     process.env.PICS_CLIENT_SECRET ?? "sus",
-    REDIRECT_URI
+    REDIRECT_URI,
   );
 
   oauth2Client.setCredentials({
-    refresh_token: process.env.PICS_REFRESH_TOKEN
+    refresh_token: process.env.PICS_REFRESH_TOKEN,
   });
 
+  // Connect to Google Drive
   const drive = google.drive({
     version: "v3",
     auth: oauth2Client,
@@ -37,7 +38,8 @@ export default async function handler(
     },
   });
 
-  const response = await drive.files.list()
+  // Fetch files
+  const response = await drive.files.list();
 
   res.status(200).json({ files: response.data.files as DriveFile[] });
 }

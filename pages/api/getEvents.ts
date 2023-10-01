@@ -1,19 +1,21 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
-import { v4 as uuidv4 } from "uuid";
+import clientPromise from "@/lib/mongodb";
 
 export default async function createEvent(
-  req: NextApiRequest,
-  res: NextApiResponse
+  _req: NextApiRequest,
+  res: NextApiResponse,
 ) {
   try {
+    // Get client details
     const client = await clientPromise;
     const db = client.db("auth");
+
+    // Find all non-hidden events
     const collection = db.collection("events");
     let allEvents = await collection.find().toArray();
-    allEvents = allEvents.filter(e => !e.hidden);
+    allEvents = allEvents.filter((e) => !e.hidden);
+
+    // Return events
     res.json({ events: allEvents });
   } catch (e) {
     res.json({ error: e });

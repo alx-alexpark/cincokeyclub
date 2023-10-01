@@ -4,17 +4,13 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: #2175F1;
+  --background-start-rgb: #2175f1;
   --background-end-rgb: #1360be;
 }
 
 main {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--background-end-rgb)
-    )
+  background: linear-gradient(to bottom, transparent, var(--background-end-rgb))
     var(--background-start-rgb);
   background-attachment: fixed;
 }

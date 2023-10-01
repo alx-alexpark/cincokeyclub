@@ -25,6 +25,63 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
 import Image from "next/image";
 
+interface NavItem {
+  label: string;
+  subLabel?: string;
+  children?: Array<NavItem>;
+  href?: string;
+}
+
+let NAV_ITEMS: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "Check your hours",
+    href: "/myHours",
+  },
+  {
+    label: "Hours leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+];
+
+const NAV_ITEMS_ADMIN: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "Check your hours",
+    href: "/myHours",
+  },
+  {
+    label: "Hours leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+  {
+    label: "Admin",
+    href: "/admin/review",
+  },
+];
+
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   let { status } = useSession();
@@ -33,15 +90,15 @@ export default function WithSubnavigation() {
 
   useEffect(() => {
     if (session) {
-      axios.get("/api/isadmin").then(data => {
+      axios.get("/api/isadmin").then((data) => {
         console.log(data);
         if (data.data.admin) {
           NAV_ITEMS = NAV_ITEMS_ADMIN;
-          setValue(value => value + 1);
+          setValue((value) => value + 1);
         }
-      })
+      });
     }
-  },[]);
+  }, []);
 
   return (
     <Box>
@@ -94,36 +151,39 @@ export default function WithSubnavigation() {
           {/* <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             Sign In
           </Button> */}
-          {status == "authenticated" ? <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            onClick={() => signOut()}
-            fontWeight={600}
-            color={"white"}
-            bg={"red.400"}
-            href={"#"}
-            _hover={{
-              bg: "red.500",
-            }}
-          >Sign out</Button> : 
-          <Button
-          as={"a"}
-          display={{ base: "none", md: "inline-flex" }}
-          fontSize={"sm"}
-          onClick={() => signIn("google")}
-          fontWeight={600}
-          color={"white"}
-          bg={"pink.400"}
-          href={"#"}
-          _hover={{
-            bg: "pink.300",
-          }}
-        >
-          Login/Register
-        </Button>
-          }
-         
+          {status == "authenticated" ? (
+            <Button
+              as={"a"}
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              onClick={() => signOut()}
+              fontWeight={600}
+              color={"white"}
+              bg={"red.400"}
+              href={"#"}
+              _hover={{
+                bg: "red.500",
+              }}
+            >
+              Sign out
+            </Button>
+          ) : (
+            <Button
+              as={"a"}
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              onClick={() => signIn("google")}
+              fontWeight={600}
+              color={"white"}
+              bg={"pink.400"}
+              href={"#"}
+              _hover={{
+                bg: "pink.300",
+              }}
+            >
+              Login/Register
+            </Button>
+          )}
         </Stack>
       </Flex>
 
@@ -288,60 +348,3 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     </Stack>
   );
 };
-
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-let NAV_ITEMS: Array<NavItem> = [
-  {
-    label: "Home",
-    href: "/"
-  },
-  {
-    label: "Submit Hours",
-    href: "/submit",
-  },
-  {
-    label: "Check your hours",
-    href: "/myHours",
-  },
-  {
-    label: "Hours leaderboard",
-    href: "/leaderboard"
-  },
-  {
-    label: "Officers",
-    href: "/officers"
-  }
-];
-
-const NAV_ITEMS_ADMIN: Array<NavItem> = [
-  {
-    label: "Home",
-    href: "/"
-  },
-  {
-    label: "Submit Hours",
-    href: "/submit",
-  },
-  {
-    label: "Check your hours",
-    href: "/myHours",
-  },
-  {
-    label: "Hours leaderboard",
-    href: "/leaderboard"
-  },
-  {
-    label: "Officers",
-    href: "/officers"
-  },
-  {
-    label: "Admin",
-    href: "/admin/review"
-  }
-];

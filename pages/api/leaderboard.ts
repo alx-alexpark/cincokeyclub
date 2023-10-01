@@ -1,56 +1,46 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
 
-interface Event {
-  image: string;
-  hours: number;
-  event: string;
-  approved: null | boolean;
-  id: string;
-  user: string;
-  userImage: string;
-}
-
-interface LeaderboardEntry {
-  name: string;
-  hours: number;
-  picture: string;
-}
+import clientPromise from "@/lib/mongodb";
+import sumHours from "@/util/sumHours";
+import LeaderboardEntry from "@/models/LeaderboardEntry";
 
 export default async function getLeaderboard(
-  req: NextApiRequest,
-  res: NextApiResponse
+  _req: NextApiRequest,
+  res: NextApiResponse,
 ) {
   try {
-    let leaderboard: LeaderboardEntry[] = [];
+    // Get client details
     const client = await clientPromise;
     const db = client.db("auth");
+
+    // Get all users
     const allUsers = await db.collection("users").find().toArray();
     console.log(allUsers);
+
+    // Build a leaderboard from all users
+    let leaderboard: LeaderboardEntry[] = [];
     allUsers.forEach((user) => {
-      let userHours = 0.0;
-      if (user.leaderboardHide != true) {
-        if (user.events != undefined) {
-          user.events.forEach((event: Event) => {
-            if (event.approved) {
-              userHours += event.hours;
-            }
-          });
-        }
-        if (userHours > 0) {
-          leaderboard.push({
-            name: user.name,
-            hours: userHours,
-            picture: user.image,
-          });
-        }
-        
+      // Skip user if they are hidden from the leaderboard or if they
+      // have no events
+      if (user.leaderboardHide || !user.events) {
+        return;
+      }
+
+      // Add user to the leaderboard if they have more than 0 hours
+      let userHours = sumHours(user.events);
+      if (userHours > 0) {
+        leaderboard.push({
+          name: user.name,
+          hours: userHours,
+          picture: user.image,
+        });
       }
     });
-    leaderboard.sort((a, b) => a.hours - b.hours);
-    leaderboard.reverse();
+
+    // Sort leaderboard from most hours to least hours
+    leaderboard.sort((a, b) => b.hours - a.hours);
+
+    // Return the leaderboard
     res.json(leaderboard);
   } catch (e) {
     console.log(e);
