@@ -55,7 +55,7 @@ export default function GeneralMeeting() {
             className="flex flex-col"
           >
             <label htmlFor="code" className="mt-2 font-semibold">
-              Enter the 4 digit code
+              Enter the 6 digit code
             </label>
             <input
               type="number"
