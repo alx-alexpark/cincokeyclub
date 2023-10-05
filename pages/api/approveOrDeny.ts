@@ -35,7 +35,7 @@ export default async function approveOrDeny(
 
     // Deny access if the user is not an admin
     if (!initiatingUser?.admin) {
-      res.status(403).json({
+      return res.status(403).json({
         message: "bruh what are you doing trying to call internal api routes??",
       });
     }
