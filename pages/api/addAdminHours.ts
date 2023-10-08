@@ -3,8 +3,6 @@ import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
 import { v4 as uuidv4 } from "uuid";
-import { JSDOM } from "jsdom";
-import DOMPurify from "dompurify";
 
 export default async function addAdminHours(
   req: NextApiRequest,

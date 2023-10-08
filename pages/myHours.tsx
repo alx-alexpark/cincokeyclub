@@ -80,7 +80,7 @@ export default function MyHours() {
           >
 
             <Text fontSize="1.5rem">Events you have attended</Text>
-            <TableContainer backgroundColor="white" color="black" borderRadius="15px">
+            <TableContainer backgroundColor="white" color="black" borderRadius="15px" maxWidth="100vw">
               <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
@@ -94,7 +94,7 @@ export default function MyHours() {
                     events.map((event: Event) => {
                       return (
                         <Tr key={uuidv4()}>
-                          <Td>{event.eventName}</Td>
+                          <Td overflowX="hidden" textOverflow="ellipsis">{event.eventName}</Td>
                           <Td isNumeric>{event.hours}</Td>
                           <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
                         </Tr>
