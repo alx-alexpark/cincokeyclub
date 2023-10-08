@@ -341,7 +341,11 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     href: "/officers"
   },
   {
-    label: "Admin",
+    label: "Review hours",
     href: "/admin/review"
+  },
+  {
+    label: "Manually add hours",
+    href: "/admin/manualAdd"
   }
 ];
