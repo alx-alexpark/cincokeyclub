@@ -84,7 +84,6 @@ export default function SubmitHours() {
             <form
               onSubmit={(e) => {
                 formik.handleSubmit(e);
-                window.location.replace("myHours");
               }}
               className="flex flex-col"
             >
