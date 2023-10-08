@@ -26,7 +26,7 @@ export default async function addAdminHours(
           $push: {
             events: {
               hours: parseFloat(hours),
-              picture: "https://amogus.church/hot.gif",
+              picture: "",
               eventId: event,
               approved: true,
               userEmail: email,
