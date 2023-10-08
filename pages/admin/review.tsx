@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
+import LoadingScreen from "@/components/LoadingScreen";
 
 interface HoursRequest {
   hours: string;
@@ -44,7 +45,7 @@ export default function AdminPanel() {
   }, []);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (isAdmin && session) {

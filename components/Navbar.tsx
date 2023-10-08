@@ -31,11 +31,10 @@ interface NavItem {
   children?: Array<NavItem>;
   href?: string;
 }
-
 let NAV_ITEMS: Array<NavItem> = [
   {
     label: "Home",
-    href: "/",
+    href: "/"
   },
   {
     label: "Submit Hours",
@@ -47,18 +46,18 @@ let NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Hours leaderboard",
-    href: "/leaderboard",
+    href: "/leaderboard"
   },
   {
     label: "Officers",
-    href: "/officers",
-  },
+    href: "/officers"
+  }
 ];
 
 const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
     label: "Home",
-    href: "/",
+    href: "/"
   },
   {
     label: "Submit Hours",
@@ -70,16 +69,20 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
   },
   {
     label: "Hours leaderboard",
-    href: "/leaderboard",
+    href: "/leaderboard"
   },
   {
     label: "Officers",
-    href: "/officers",
+    href: "/officers"
   },
   {
-    label: "Admin",
-    href: "/admin/review",
+    label: "Review hours",
+    href: "/admin/review"
   },
+  {
+    label: "Manually add hours",
+    href: "/admin/manualAdd"
+  }
 ];
 
 export default function WithSubnavigation() {
