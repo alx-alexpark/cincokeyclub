@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
 import { v4 as uuidv4 } from "uuid";
 
-export default async function createEvent(
+export default async function getEvents(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
