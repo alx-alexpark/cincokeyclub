@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
+import sumHours from "@/util/sumHours";
 import Event from "@/models/Event";
 
 export default async function getHours(
@@ -41,12 +42,7 @@ export default async function getHours(
     const selUser = await db.collection("users").findOne({ email: userEmail });
 
     // Sum the user's approved hours
-    let totalHours = 0.0;
-    selUser?.events.forEach((event: Event) => {
-      if (event.approved) {
-        totalHours += event.hours;
-      }
-    });
+    let totalHours = sumHours(selUser?.events);
 
     res.json({ hours: totalHours });
   } catch (e) {
