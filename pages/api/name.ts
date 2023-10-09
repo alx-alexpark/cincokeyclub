@@ -24,6 +24,7 @@ export default async function renameUser(
       const usersCollection = db.collection("users");
       if (name.length == 0 || name.length > 200) {
         res.status(420).json({error: "What goofy things are you doing?"})
+        return;
       }
       usersCollection.updateOne(
         { email: session.user?.email },
