@@ -1,14 +1,10 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import Image from "next/image";
 import { Field, useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
-import styles from "../styles/SubmitHours.module.css";
 import { Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
