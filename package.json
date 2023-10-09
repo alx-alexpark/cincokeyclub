@@ -20,6 +20,7 @@
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@types/uuid": "^9.0.1",
+    "@vercel/analytics": "^1.1.0",
     "autoprefixer": "10.4.14",
     "aws-sdk": "^2.1450.0",
     "axios": "^1.4.0",
