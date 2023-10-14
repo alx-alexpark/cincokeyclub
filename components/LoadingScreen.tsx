@@ -1,19 +1,21 @@
-import { Container, Text, Center, Stack, Button } from "@chakra-ui/react";
+import { Container, Text, Center, Stack, Button, Flex } from "@chakra-ui/react";
+import Navbar from "./Navbar";
 
 export default function LoadingScreen() {
   return (
-    <Container
-      height="100vh"
+    <Flex
+      minHeight="100vh"
       width="100vw"
-      display="flex"
       alignItems="center"
       justifyContent="center"
+      flexDir="column"
     >
-      <Center>
+      <Navbar />
+      <Center flex={1} minH="100%">
         <Stack>
           <Text fontSize="4xl">Loading...</Text>
         </Stack>
       </Center>
-    </Container>
+    </Flex>
   );
 }

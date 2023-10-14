@@ -7,6 +7,8 @@ import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import { Flex, Text } from "@chakra-ui/react";
 import Navbar from "@/components/Navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Event {
   _id: string;
@@ -38,8 +40,12 @@ export default function SubmitHours() {
       event: string;
       email: string;
     }) => {
-      await axios.post("/api/addAdminHours", values);
-      // alert(JSON.stringify(actuallySentData, null, 2));
+      const callApi = async () => await axios.post("/api/addAdminHours", values);
+      toast.promise(callApi, {
+        pending: "Adding hours",
+        success: "Yay! Added hours successfully",
+        error: "Error. Go yell at Alex.",
+      });
     },
   });
 
@@ -77,6 +83,7 @@ export default function SubmitHours() {
               background: "transparent",
             }}
           >
+            <ToastContainer />
             <Text fontWeight="extrabold">Goofy hours add form</Text>
             <form
               onSubmit={(e) => {
