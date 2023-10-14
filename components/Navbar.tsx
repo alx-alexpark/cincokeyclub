@@ -33,15 +33,15 @@ export default function WithSubnavigation() {
 
   useEffect(() => {
     if (session) {
-      axios.get("/api/isadmin").then(data => {
+      axios.get("/api/isadmin").then((data) => {
         console.log(data);
         if (data.data.admin) {
           NAV_ITEMS = NAV_ITEMS_ADMIN;
-          setValue(value => value + 1);
+          setValue((value) => value + 1);
         }
-      })
+      });
     }
-  },[]);
+  }, []);
 
   return (
     <Box>
@@ -72,13 +72,13 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          {/* <Text
+          <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            
-          </Text> */}
+            Cinco Key Club
+          </Text>
           {/* <Image src="/android-chrome-192x192.png" alt={"The Cinco Key Club logo"} width="16" height="16" style={{maxWidth: "100%", alignSelf: 'start'}}/> */}
           <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
@@ -94,36 +94,39 @@ export default function WithSubnavigation() {
           {/* <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             Sign In
           </Button> */}
-          {status == "authenticated" ? <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            onClick={() => signOut()}
-            fontWeight={600}
-            color={"white"}
-            bg={"red.400"}
-            href={"#"}
-            _hover={{
-              bg: "red.500",
-            }}
-          >Sign out</Button> : 
-          <Button
-          as={"a"}
-          display={{ base: "none", md: "inline-flex" }}
-          fontSize={"sm"}
-          onClick={() => signIn("google")}
-          fontWeight={600}
-          color={"white"}
-          bg={"pink.400"}
-          href={"#"}
-          _hover={{
-            bg: "pink.300",
-          }}
-        >
-          Login/Register
-        </Button>
-          }
-         
+          {status == "authenticated" ? (
+            <Button
+              as={"a"}
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              onClick={() => signOut()}
+              fontWeight={600}
+              color={"white"}
+              bg={"red.400"}
+              href={"#"}
+              _hover={{
+                bg: "red.500",
+              }}
+            >
+              Sign out
+            </Button>
+          ) : (
+            <Button
+              as={"a"}
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              onClick={() => signIn("google")}
+              fontWeight={600}
+              color={"white"}
+              bg={"pink.400"}
+              href={"#"}
+              _hover={{
+                bg: "pink.300",
+              }}
+            >
+              Login/Register
+            </Button>
+          )}
         </Stack>
       </Flex>
 
@@ -299,7 +302,7 @@ interface NavItem {
 let NAV_ITEMS: Array<NavItem> = [
   {
     label: "Home",
-    href: "/"
+    href: "/",
   },
   {
     label: "Submit Hours",
@@ -310,19 +313,23 @@ let NAV_ITEMS: Array<NavItem> = [
     href: "/myHours",
   },
   {
-    label: "Hours leaderboard",
-    href: "/leaderboard"
+    label: "Leaderboard",
+    href: "/leaderboard",
   },
   {
     label: "Officers",
-    href: "/officers"
-  }
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
+  },
 ];
 
 const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
     label: "Home",
-    href: "/"
+    href: "/",
   },
   {
     label: "Submit Hours",
@@ -333,19 +340,23 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     href: "/myHours",
   },
   {
-    label: "Hours leaderboard",
-    href: "/leaderboard"
+    label: "Leaderboard",
+    href: "/leaderboard",
   },
   {
     label: "Officers",
-    href: "/officers"
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
   },
   {
     label: "Review hours",
-    href: "/admin/review"
+    href: "/admin/review",
   },
   {
     label: "Manually add hours",
-    href: "/admin/manualAdd"
-  }
+    href: "/admin/manualAdd",
+  },
 ];
