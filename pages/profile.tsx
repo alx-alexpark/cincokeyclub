@@ -9,10 +9,10 @@ import Navbar from "@/components/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function UpdateName() {
+export default function Profile() {
   const { data: session, status } = useSession();
 
-  const formik = useFormik({
+  const nameForm = useFormik({
     initialValues: {
       name: "",
     },
@@ -37,15 +37,18 @@ export default function UpdateName() {
               background: "transparent",
             }}
           >
+            <Text fontSize="2em">
+              Your profile
+            </Text>
             <ToastContainer />
             <form
               onSubmit={(e) => {
-                formik.handleSubmit(e);
+                nameForm.handleSubmit(e);
               }}
               className="flex flex-col"
             >
               <label htmlFor="name" className="mt-2 font-semibold">
-                Enter your <b>real</b> name.
+                <b>Real</b> name.
               </label>
               <input
                 type="text"
@@ -53,16 +56,16 @@ export default function UpdateName() {
                 name="name"
                 required
                 placeholder={session?.user?.name ?? "You found a glitch!"}
-                onChange={formik.handleChange}
-                value={formik.values.name}
+                onChange={nameForm.handleChange}
+                value={nameForm.values.name}
                 className="text-black rounded-md pl-2 p-2 text-md mb-2"
               />
               <input
                 type="submit"
                 style={{ cursor: "pointer" }}
-                disabled={formik.isSubmitting}
+                disabled={nameForm.isSubmitting}
                 className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-                value="update"
+                value="update name"
               />
             </form>
           </main>

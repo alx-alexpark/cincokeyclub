@@ -13,6 +13,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -27,8 +28,7 @@ import Image from "next/image";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  let { status } = useSession();
-  let session = useSession();
+  const { data: session, status } = useSession();
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -76,6 +76,7 @@ export default function WithSubnavigation() {
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
+            display={{md: "none"}}
           >
             Cinco Key Club
           </Text>
@@ -95,6 +96,7 @@ export default function WithSubnavigation() {
             Sign In
           </Button> */}
           {status == "authenticated" ? (
+            <>
             <Button
               as={"a"}
               display={{ base: "none", md: "inline-flex" }}
@@ -110,6 +112,7 @@ export default function WithSubnavigation() {
             >
               Sign out
             </Button>
+            </>
           ) : (
             <Button
               as={"a"}
@@ -309,7 +312,7 @@ let NAV_ITEMS: Array<NavItem> = [
     href: "/submit",
   },
   {
-    label: "Check your hours",
+    label: "My Hours",
     href: "/myHours",
   },
   {
@@ -323,6 +326,10 @@ let NAV_ITEMS: Array<NavItem> = [
   {
     label: "Gallery",
     href: "https://gallery.cincokey.club",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
   },
 ];
 
@@ -336,7 +343,7 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     href: "/submit",
   },
   {
-    label: "Check your hours",
+    label: "My Hours",
     href: "/myHours",
   },
   {
@@ -352,11 +359,15 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     href: "https://gallery.cincokey.club",
   },
   {
-    label: "Review hours",
+    label: "Profile",
+    href: "/profile",
+  },
+  {
+    label: "Review",
     href: "/admin/review",
   },
   {
-    label: "Manually add hours",
+    label: "Add hours",
     href: "/admin/manualAdd",
   },
 ];

@@ -76,6 +76,7 @@ export default function MyHours() {
             </Text>
             <Text fontSize="1.25rem">Your total hours</Text>
           </Flex>
+          <br />
           <Flex
             flexDirection="column"
             alignItems="center"
