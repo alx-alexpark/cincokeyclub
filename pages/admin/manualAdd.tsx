@@ -59,7 +59,7 @@ export default function SubmitHours() {
         console.error(error);
         setIsAdmin(false);
       });
-    axios.get("/api/getEvents").then((res) => {
+    axios.get("/api/getEvents?showHidden=true").then((res) => {
       setEventdata(res.data.events);
     });
     axios.get("/api/getUsers").then((res) => {
