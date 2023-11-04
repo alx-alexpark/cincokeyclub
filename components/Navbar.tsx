@@ -370,4 +370,8 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
     label: "Add hours",
     href: "/admin/manualAdd",
   },
+  {
+    label: "Audit hours",
+    href: "/admin/viewHours",
+  },
 ];
