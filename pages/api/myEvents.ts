@@ -21,12 +21,19 @@ export default async function yourEvents(
   const session = await getServerSession(req, res, authOptions);
   if (session) {
     try {
-      const userEmail = session.user?.email;
+      const { lookupEmail } =  req.query;
+      let adminHoursLookupMode = false;
       const client = await clientPromise;
       const db = client.db("auth");
+      const userEmail = session.user?.email;
+      if (lookupEmail != undefined) {
+        const invokingUser = await db.collection("users").findOne({email: userEmail});
+        if (invokingUser?.admin)
+          adminHoursLookupMode = true;
+      }
       const selUser = await db
         .collection("users")
-        .findOne({ email: userEmail });
+        .findOne({ email: adminHoursLookupMode ? lookupEmail : userEmail });
         let userEvents = selUser?.events;
         for (let i = 0; i < userEvents.length; i++) {
             userEvents[i].eventName = await getEventNameById(userEvents[i].eventId);
