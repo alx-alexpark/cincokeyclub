@@ -9,6 +9,7 @@ import { Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useBreakpo
 import Navbar from "@/components/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 interface Event {
   _id: string;
@@ -20,7 +21,7 @@ interface Event {
 
 interface UserSubmittedEvent {
     hours: number;
-    picture: String;
+    picture: string;
     userImage: String;
     approved: boolean;
     user: String;
@@ -159,6 +160,7 @@ export default function ViewHours() {
                     <Th>Event name</Th>
                     <Th isNumeric>Hours</Th>
                     <Th>Status</Th>
+                    <Th>Pic</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -168,10 +170,12 @@ export default function ViewHours() {
                             <Td textOverflow="ellipsis" overflowX="hidden">{event.eventName}</Td>
                             <Td isNumeric>{event.hours}</Td>
                             <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
+                            <Td>{event.picture.length == 0 ? "*" : <ExternalLinkIcon cursor="pointer" onClick={() => window.open(event.picture, "_blank")} />}</Td>
                         </Tr>
                     ))
                   ) : (
                     <Tr>
+                      <Td>*</Td>
                       <Td>*</Td>
                       <Td>*</Td>
                       <Td>*</Td>
