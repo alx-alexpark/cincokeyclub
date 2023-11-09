@@ -19,8 +19,8 @@ export default function GeneralMeeting() {
     onSubmit: async (values: { code: string }) => {
       const callApi = async () => await axios.post("/api/gm", values);
       toast.promise(callApi, {
-        pending: "Working",
-        success: "It worked!!",
+        pending: "Processing...",
+        success: "Received hours",
         error: "Code invalid or hours already claimed",
       });
     },
