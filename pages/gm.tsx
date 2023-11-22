@@ -40,7 +40,7 @@ export default function GeneralMeeting() {
     },
   });
 
-  if (true || session) {
+  if (session) {
     return (
       <Flex minH="100vh" flexDir="column">
         <Navbar />
