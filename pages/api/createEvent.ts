@@ -3,8 +3,8 @@ import { getServerSession } from "next-auth/next";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function createEvent(
   req: NextApiRequest,

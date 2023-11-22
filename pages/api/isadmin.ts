@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 
-import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function isAdmin(
   req: NextApiRequest,

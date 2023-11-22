@@ -1,17 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
+import { Center, Text } from "@chakra-ui/react";
 import useSWR from "swr";
-import {
-  Center,
-  Flex,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
 
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
@@ -40,7 +28,10 @@ export default function Leaderboard() {
   if (data) {
     console.log(data);
     return (
-      <div className="min-h-screen" style={{display: "flex", flexDirection: "column"}}>
+      <div
+        className="min-h-screen"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <Navbar />
         <Center width="100vw" minH="100%" flex={1}>
           <Text>The leaderboard has been temporarily disabled.</Text>

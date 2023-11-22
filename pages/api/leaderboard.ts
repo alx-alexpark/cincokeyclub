@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import clientPromise from "@/lib/mongodb";
-import sumHours from "@/util/sumHours";
 import LeaderboardEntry from "@/models/LeaderboardEntry";
+import sumHours from "@/util/sumHours";
 
 export default async function getLeaderboard(
   _req: NextApiRequest,

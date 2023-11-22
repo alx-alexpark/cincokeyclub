@@ -1,9 +1,10 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
+
 import clientPromise from "@/lib/mongodb";
-import getEventNameById from "@/util/getEventNameById";
 import UserSubmittedEvent from "@/models/UserSubmittedEvent";
+import getEventNameById from "@/util/getEventNameById";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function getPendingHoursRequests(
   req: NextApiRequest,

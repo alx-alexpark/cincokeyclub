@@ -1,12 +1,13 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
-import axios from "axios";
-import { Field, useFormik } from "formik";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
 import { Flex, Text } from "@chakra-ui/react";
-import Navbar from "@/components/Navbar";
+import { useSession } from "next-auth/react";
+
+import axios from "axios";
+import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
+
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Profile() {
@@ -37,9 +38,7 @@ export default function Profile() {
               background: "transparent",
             }}
           >
-            <Text fontSize="2em">
-              Your profile
-            </Text>
+            <Text fontSize="2em">Your profile</Text>
             <ToastContainer />
             <form
               onSubmit={(e) => {

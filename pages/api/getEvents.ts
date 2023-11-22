@@ -1,8 +1,8 @@
+import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
 
 export default async function createEvent(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
@@ -14,9 +14,8 @@ export default async function createEvent(
     const collection = db.collection("events");
     let allEvents = await collection.find().toArray();
 
-    if (!showHidden)
-      allEvents = allEvents.filter(e => !e.hidden);
-  
+    if (!showHidden) allEvents = allEvents.filter((e) => !e.hidden);
+
     res.json({ events: allEvents });
   } catch (e) {
     res.json({ error: e });

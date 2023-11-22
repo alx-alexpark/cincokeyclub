@@ -1,12 +1,13 @@
+import { Button, Card, Flex } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+
+import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import SuggestLogin from "@/components/SuggestLogin";
-import { Button, Card, Flex } from "@chakra-ui/react";
+
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ToastContainer, toast } from "react-toastify";
-import LoadingScreen from "@/components/LoadingScreen";
 
 interface HoursRequest {
   hours: string;

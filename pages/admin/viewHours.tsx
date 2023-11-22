@@ -1,10 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { useFormik } from "formik";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Table,
@@ -17,12 +11,21 @@ import {
   Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
+
+import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
 import User from "@/models/User";
 import UserSubmittedEvent from "@/models/UserSubmittedEvent";
-import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export default function ViewHours() {
   const { data: session, status } = useSession();

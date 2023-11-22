@@ -1,15 +1,18 @@
+import { Flex, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
-import { Flex, Text } from "@chakra-ui/react";
-import Navbar from "@/components/Navbar";
-import User from "@/models/User";
-import DBEvent from "@/models/DBEvent";
 import { ToastContainer, toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
+
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
+import DBEvent from "@/models/DBEvent";
+import User from "@/models/User";
+
 import "react-toastify/dist/ReactToastify.css";
 
 export default function SubmitHours() {

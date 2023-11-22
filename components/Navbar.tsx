@@ -1,30 +1,29 @@
 import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-  Avatar,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  CloseIcon,
+  HamburgerIcon,
 } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Collapse,
+  Flex,
+  Icon,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  useBreakpointValue,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+
 import axios from "axios";
-import Image from "next/image";
 
 interface NavItem {
   label: string;
@@ -110,7 +109,6 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const { data: session, status } = useSession();
-  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (session) {
@@ -118,7 +116,6 @@ export default function WithSubnavigation() {
         console.log(data);
         if (data.data.admin) {
           NAV_ITEMS = NAV_ITEMS_ADMIN;
-          setValue((value) => value + 1);
         }
       });
     }

@@ -1,8 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import S3 from "aws-sdk/clients/s3";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./auth/[...nextauth]";
+
 import { v4 as uuidv4 } from "uuid";
+
+import { authOptions } from "./auth/[...nextauth]";
 
 const s3 = new S3({
   endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,

@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import {
   Flex,
-  Text,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
 import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
 export default function MyHours() {

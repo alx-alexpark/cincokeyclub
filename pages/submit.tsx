@@ -1,18 +1,19 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { Flex, Text } from "@chakra-ui/react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
+import { v4 as uuidv4 } from "uuid";
 
-import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
-import styles from "@/styles/SubmitHours.module.css";
+import SuggestLogin from "@/components/SuggestLogin";
 import DBEvent from "@/models/DBEvent";
+
+import styles from "@/styles/SubmitHours.module.css";
 
 const BUCKET_URL = "https://cdn.usercontent.cincokey.club/";
 

@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
 
 import clientPromise from "@/lib/mongodb";
 import UserSubmittedEvent from "@/models/UserSubmittedEvent";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function approveOrDeny(
   req: NextApiRequest,

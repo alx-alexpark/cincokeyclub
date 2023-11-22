@@ -1,5 +1,6 @@
-import { Container, Text, Center, Stack, Button, Flex } from "@chakra-ui/react";
+import { Button, Center, Container, Flex, Stack, Text } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
+
 import Navbar from "./Navbar";
 
 export default function SuggestLogin() {

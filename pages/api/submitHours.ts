@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 
-import { v4 as uuidv4 } from "uuid";
-import { JSDOM } from "jsdom";
 import DOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
+import { v4 as uuidv4 } from "uuid";
 
-import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function submitHours(
   req: NextApiRequest,
@@ -21,7 +21,7 @@ export default async function submitHours(
   // Deny access if no session is active
   if (!session) {
     return res.status(403).json({
-      error: "Not authenicated",
+      error: "Not authenticated",
     });
   }
 
