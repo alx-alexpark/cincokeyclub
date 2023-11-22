@@ -13,6 +13,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -87,8 +88,7 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  let { status } = useSession();
-  let session = useSession();
+  const { data: session, status } = useSession();
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -132,13 +132,14 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          {/* <Text
+          <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
+            display={{md: "none"}}
           >
-            
-          </Text> */}
+            Cinco Key Club
+          </Text>
           {/* <Image src="/android-chrome-192x192.png" alt={"The Cinco Key Club logo"} width="16" height="16" style={{maxWidth: "100%", alignSelf: 'start'}}/> */}
           <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
@@ -155,6 +156,7 @@ export default function WithSubnavigation() {
             Sign In
           </Button> */}
           {status == "authenticated" ? (
+            <>
             <Button
               as={"a"}
               display={{ base: "none", md: "inline-flex" }}
@@ -170,6 +172,7 @@ export default function WithSubnavigation() {
             >
               Sign out
             </Button>
+            </>
           ) : (
             <Button
               as={"a"}
@@ -351,3 +354,84 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     </Stack>
   );
 };
+
+interface NavItem {
+  label: string;
+  subLabel?: string;
+  children?: Array<NavItem>;
+  href?: string;
+}
+
+let NAV_ITEMS: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "My Hours",
+    href: "/myHours",
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+  },
+];
+
+const NAV_ITEMS_ADMIN: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "My Hours",
+    href: "/myHours",
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+  },
+  {
+    label: "Review",
+    href: "/admin/review",
+  },
+  {
+    label: "Add hours",
+    href: "/admin/manualAdd",
+  },
+  {
+    label: "Audit hours",
+    href: "/admin/viewHours",
+  },
+];

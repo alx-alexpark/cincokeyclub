@@ -10,7 +10,11 @@ import {
   Th,
   Td,
   TableContainer,
+  useBreakpointValue,
 } from "@chakra-ui/react";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -24,6 +28,7 @@ export default function MyHours() {
   const { data: session, status } = useSession();
   const [totalHours, setTotalHours] = useState(0);
   const [events, setHours] = useState([]);
+  let tableSize = useBreakpointValue({ base: "sm", md: "md" });
 
   useEffect(() => {
     axios
@@ -57,18 +62,15 @@ export default function MyHours() {
             </Text>
             <Text fontSize="1.25rem">Your total hours</Text>
           </Flex>
+          <br />
           <Flex
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
           >
             <Text fontSize="1.5rem">Events you have attended</Text>
-            <TableContainer
-              backgroundColor="white"
-              color="black"
-              borderRadius="15px"
-            >
-              <Table variant="striped" colorScheme="teal">
+            <TableContainer backgroundColor="white" color="black" borderRadius="15px" overflowX="hidden">
+              <Table variant="striped" colorScheme="teal" style={{tableLayout: "auto"}} size={tableSize}>
                 <Thead>
                   <Tr>
                     <Th>Event name</Th>
@@ -81,7 +83,7 @@ export default function MyHours() {
                     events.map((event: Event) => {
                       return (
                         <Tr key={uuidv4()}>
-                          <Td>{event.eventName}</Td>
+                          <Td textOverflow="ellipsis" overflowX="hidden">{event.eventName}</Td>
                           <Td isNumeric>{event.hours}</Td>
                           <Td>
                             {event.approved == null

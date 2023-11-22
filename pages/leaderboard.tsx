@@ -40,9 +40,9 @@ export default function Leaderboard() {
   if (data) {
     console.log(data);
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen" style={{display: "flex", flexDirection: "column"}}>
         <Navbar />
-        <Center width="100vw" minH="100%">
+        <Center width="100vw" minH="100%" flex={1}>
           <Text>The leaderboard has been temporarily disabled.</Text>
           {/* <Flex flexDir="column" minH="100%">
             <Text fontSize="3.5em">Leaderboard</Text>

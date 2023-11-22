@@ -2,14 +2,13 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import Image from "next/image";
 import { Field, useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
-import styles from "../styles/SubmitHours.module.css";
 import { Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Event {
   _id: string;
@@ -41,8 +40,12 @@ export default function SubmitHours() {
       event: string;
       email: string;
     }) => {
-      await axios.post("/api/addAdminHours", values);
-      // alert(JSON.stringify(actuallySentData, null, 2));
+      const callApi = async () => await axios.post("/api/addAdminHours", values);
+      toast.promise(callApi, {
+        pending: "Adding hours",
+        success: "Yay! Added hours successfully",
+        error: "Error. Go yell at Alex.",
+      });
     },
   });
 
@@ -56,7 +59,7 @@ export default function SubmitHours() {
         console.error(error);
         setIsAdmin(false);
       });
-    axios.get("/api/getEvents").then((res) => {
+    axios.get("/api/getEvents?showHidden=true").then((res) => {
       setEventdata(res.data.events);
     });
     axios.get("/api/getUsers").then((res) => {
@@ -80,11 +83,11 @@ export default function SubmitHours() {
               background: "transparent",
             }}
           >
+            <ToastContainer />
             <Text fontWeight="extrabold">Goofy hours add form</Text>
             <form
               onSubmit={(e) => {
                 formik.handleSubmit(e);
-                window.location.replace("myHours");
               }}
               className="flex flex-col"
             >
