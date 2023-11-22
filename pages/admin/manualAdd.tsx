@@ -1,27 +1,16 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { Field, useFormik } from "formik";
+import { useFormik } from "formik";
 import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import { Flex, Text } from "@chakra-ui/react";
 import Navbar from "@/components/Navbar";
+import User from "@/models/User";
+import DBEvent from "@/models/DBEvent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-interface Event {
-  _id: string;
-  id: string;
-  name: string;
-  createdBy: string;
-  dateCreated: number;
-}
-
-interface User {
-  email: string;
-  name: string;
-}
 
 export default function SubmitHours() {
   const { data: session, status } = useSession();
@@ -33,14 +22,15 @@ export default function SubmitHours() {
     initialValues: {
       hours: 0,
       event: "default",
-      email: "default"
+      email: "default",
     },
     onSubmit: async (values: {
       hours: number;
       event: string;
       email: string;
     }) => {
-      const callApi = async () => await axios.post("/api/addAdminHours", values);
+      const callApi = async () =>
+        await axios.post("/api/addAdminHours", values);
       toast.promise(callApi, {
         pending: "Adding hours",
         success: "Yay! Added hours successfully",
@@ -133,7 +123,7 @@ export default function SubmitHours() {
                 className="text-black mb-3 rounded-md pl-2 text-md p-2"
               >
                 <option value="default">Pick an event</option>
-                {eventdata?.map((event: Event) => (
+                {eventdata?.map((event: DBEvent) => (
                   <option key={uuidv4()} value={event.id}>
                     {event.name}
                   </option>

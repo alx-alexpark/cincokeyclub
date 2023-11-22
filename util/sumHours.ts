@@ -1,9 +1,9 @@
-import Event from "@/models/Event";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
-export default function sumHours(events: Event[]) {
+export default function sumHours(events: UserSubmittedEvent[]) {
   let totalHours = 0.0;
 
-  events.forEach((event: Event) => {
+  events.forEach((event: UserSubmittedEvent) => {
     if (event.approved) {
       totalHours += event.hours;
     }

@@ -1,4 +1,4 @@
-export default interface Event {
+export default interface UserSubmittedEvent {
   image: string;
   hours: number;
   approved: null | boolean;
@@ -6,7 +6,7 @@ export default interface Event {
   user: string;
   userImage: string;
   // userEmail: string;
-  // picture: String;
+  picture: string;
 
   // event: string;
   eventName: string;

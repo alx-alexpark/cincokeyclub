@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
-import Event from "@/models/Event";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
 export default async function generalMeeting(
   req: NextApiRequest,
@@ -49,7 +49,7 @@ export default async function generalMeeting(
 
   // Stop if the user has already gotten hours for this general meeting
   if (you?.events !== undefined) {
-    const userEvents = you?.events as Event[];
+    const userEvents = you?.events as UserSubmittedEvent[];
 
     let userEvent = userEvents.find((e) => e.eventId == eventId);
     console.log(userEvent);

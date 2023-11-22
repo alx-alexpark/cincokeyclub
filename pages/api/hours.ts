@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 import clientPromise from "@/lib/mongodb";
 import sumHours from "@/util/sumHours";
-import Event from "@/models/Event";
 
 export default async function getHours(
   req: NextApiRequest,

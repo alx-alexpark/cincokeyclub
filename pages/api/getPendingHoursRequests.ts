@@ -3,7 +3,7 @@ import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
 import getEventNameById from "@/util/getEventNameById";
-import Event from "@/models/Event";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
 export default async function getPendingHoursRequests(
   req: NextApiRequest,
@@ -25,14 +25,14 @@ export default async function getPendingHoursRequests(
 
   // Filter through ever user and find pending hours
   const users = await db.collection("users").find().toArray();
-  let pendingHours: Event[] = [];
+  let pendingHours: UserSubmittedEvent[] = [];
 
   users.forEach((user) => {
     if (user.events === undefined) {
       return;
     }
 
-    user.events.forEach(async (event: Event) => {
+    user.events.forEach(async (event: UserSubmittedEvent) => {
       if (event.approved === null) {
         pendingHours.push(event);
       }

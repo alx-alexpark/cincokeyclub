@@ -12,16 +12,9 @@ import SuggestLogin from "@/components/SuggestLogin";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import styles from "@/styles/SubmitHours.module.css";
+import DBEvent from "@/models/DBEvent";
 
 const BUCKET_URL = "https://cdn.usercontent.cincokey.club/";
-
-interface Event {
-  _id: string;
-  id: string;
-  name: string;
-  createdBy: string;
-  dateCreated: number;
-}
 
 export default function SubmitHours() {
   const [file, setFile] = useState<any>();
@@ -174,7 +167,7 @@ export default function SubmitHours() {
                 className="text-black mb-1 rounded-md pl-2 text-md p-2"
               >
                 <option value="default">Pick an event</option>
-                {eventdata?.map((event: Event) => (
+                {eventdata?.map((event: DBEvent) => (
                   <option key={uuidv4()} value={event.id}>
                     {event.name}
                   </option>

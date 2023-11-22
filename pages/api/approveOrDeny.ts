@@ -3,7 +3,7 @@ import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import clientPromise from "@/lib/mongodb";
-import Event from "@/models/Event";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
 export default async function approveOrDeny(
   req: NextApiRequest,
@@ -41,7 +41,7 @@ export default async function approveOrDeny(
     }
 
     // Approve events with the matching ID
-    user?.events.forEach((event: Event) => {
+    user?.events.forEach((event: UserSubmittedEvent) => {
       if (event.eventId === id) {
         event.approved = status;
         console.log(event.eventId);
