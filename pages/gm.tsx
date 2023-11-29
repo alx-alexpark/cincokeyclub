@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, HStack, PinInput, PinInputField } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 import axios from "axios";
@@ -18,6 +18,18 @@ export default function GeneralMeeting() {
     initialValues: {
       code: "",
     },
+    validateOnMount: true,
+    validate: (values: { code: string }) => {
+      const errors: { code?: string } = {};
+
+      if (!values.code) {
+        errors.code = "Required";
+      } else if (values.code.length != 6) {
+        errors.code = "Code must be 6 digits long";
+      }
+
+      return errors;
+    },
     onSubmit: async (values: { code: string }) => {
       const callApi = async () => await axios.post("/api/gm", values);
       toast.promise(callApi, {
@@ -35,7 +47,6 @@ export default function GeneralMeeting() {
         <div className="container flex items-center p-4 mx-auto flex-1 justify-center flex-col">
           <main
             style={{
-              backgroundColor: "transparent",
               background: "transparent",
             }}
           >
@@ -45,27 +56,35 @@ export default function GeneralMeeting() {
               onSubmit={(e) => {
                 formik.handleSubmit(e);
               }}
-              className="flex flex-col"
+              className="flex flex-col gap-4"
             >
               <label htmlFor="code" className="mt-2 font-semibold">
                 Enter the 6 digit code
+                <HStack>
+                  <PinInput
+                    id="code"
+                    onChange={(code: string) => {
+                      formik.setFieldValue("code", code);
+                    }}
+                  >
+                    <PinInputField textColor="black" bg="white" />
+                    <PinInputField textColor="black" bg="white" />
+                    <PinInputField textColor="black" bg="white" />
+                    <PinInputField textColor="black" bg="white" />
+                    <PinInputField textColor="black" bg="white" />
+                    <PinInputField textColor="black" bg="white" />
+                  </PinInput>
+                </HStack>
               </label>
-              <input
-                type="number"
-                id="code"
-                name="code"
-                maxLength={4}
-                required
-                onChange={formik.handleChange}
-                value={formik.values.code}
-                className="text-black rounded-md pl-2 p-2 text-md mb-2"
-              />
-              <input
+
+              <button
                 type="submit"
                 style={{ cursor: "pointer" }}
-                disabled={formik.values.code == "0" || formik.isSubmitting}
-                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-              />
+                disabled={!formik.isValid || formik.isSubmitting}
+                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 disabled:bg-gray-300 disabled:text-gray-500"
+              >
+                Submit
+              </button>
             </form>
           </main>
         </div>
