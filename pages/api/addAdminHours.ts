@@ -1,12 +1,14 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
+import { getServerSession } from "next-auth/next";
+
 import { v4 as uuidv4 } from "uuid";
+
+import clientPromise from "@/lib/mongodb";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function addAdminHours(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const session = await getServerSession(req, res, authOptions);
   if (session) {
@@ -31,7 +33,7 @@ export default async function addAdminHours(
               uuid: uuidv4(),
             },
           },
-        }
+        },
       );
     } else {
       return res.status(403).json({ error: "Not admin!" });
@@ -39,7 +41,7 @@ export default async function addAdminHours(
     res.status(200).json({ success: true });
   } else {
     res.status(403).json({
-      error: "Not authenicated",
+      error: "Not authenticated",
     });
   }
 }

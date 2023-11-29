@@ -1,35 +1,114 @@
 import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-  Avatar,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  CloseIcon,
+  HamburgerIcon,
 } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Collapse,
+  Flex,
+  Icon,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  useBreakpointValue,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+
 import axios from "axios";
-import Image from "next/image";
+
+interface NavItem {
+  label: string;
+  subLabel?: string;
+  children?: Array<NavItem>;
+  href?: string;
+}
+
+let NAV_ITEMS: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "My Hours",
+    href: "/myHours",
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+  },
+];
+
+const NAV_ITEMS_ADMIN: Array<NavItem> = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Submit Hours",
+    href: "/submit",
+  },
+  {
+    label: "My Hours",
+    href: "/myHours",
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Officers",
+    href: "/officers",
+  },
+  {
+    label: "Gallery",
+    href: "https://gallery.cincokey.club",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+  },
+  {
+    label: "Review",
+    href: "/admin/review",
+  },
+  {
+    label: "Add hours",
+    href: "/admin/manualAdd",
+  },
+  {
+    label: "Audit hours",
+    href: "/admin/viewHours",
+  },
+];
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const { data: session, status } = useSession();
-  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (session) {
@@ -37,7 +116,6 @@ export default function WithSubnavigation() {
         console.log(data);
         if (data.data.admin) {
           NAV_ITEMS = NAV_ITEMS_ADMIN;
-          setValue((value) => value + 1);
         }
       });
     }
@@ -76,7 +154,7 @@ export default function WithSubnavigation() {
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
-            display={{md: "none"}}
+            display={{ md: "none" }}
           >
             Cinco Key Club
           </Text>
@@ -97,21 +175,21 @@ export default function WithSubnavigation() {
           </Button> */}
           {status == "authenticated" ? (
             <>
-            <Button
-              as={"a"}
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              onClick={() => signOut()}
-              fontWeight={600}
-              color={"white"}
-              bg={"red.400"}
-              href={"#"}
-              _hover={{
-                bg: "red.500",
-              }}
-            >
-              Sign out
-            </Button>
+              <Button
+                as={"a"}
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                onClick={() => signOut()}
+                fontWeight={600}
+                color={"white"}
+                bg={"red.400"}
+                href={"#"}
+                _hover={{
+                  bg: "red.500",
+                }}
+              >
+                Sign out
+              </Button>
             </>
           ) : (
             <Button
@@ -294,84 +372,3 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     </Stack>
   );
 };
-
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-let NAV_ITEMS: Array<NavItem> = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Submit Hours",
-    href: "/submit",
-  },
-  {
-    label: "My Hours",
-    href: "/myHours",
-  },
-  {
-    label: "Leaderboard",
-    href: "/leaderboard",
-  },
-  {
-    label: "Officers",
-    href: "/officers",
-  },
-  {
-    label: "Gallery",
-    href: "https://gallery.cincokey.club",
-  },
-  {
-    label: "Profile",
-    href: "/profile",
-  },
-];
-
-const NAV_ITEMS_ADMIN: Array<NavItem> = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Submit Hours",
-    href: "/submit",
-  },
-  {
-    label: "My Hours",
-    href: "/myHours",
-  },
-  {
-    label: "Leaderboard",
-    href: "/leaderboard",
-  },
-  {
-    label: "Officers",
-    href: "/officers",
-  },
-  {
-    label: "Gallery",
-    href: "https://gallery.cincokey.club",
-  },
-  {
-    label: "Profile",
-    href: "/profile",
-  },
-  {
-    label: "Review",
-    href: "/admin/review",
-  },
-  {
-    label: "Add hours",
-    href: "/admin/manualAdd",
-  },
-  {
-    label: "Audit hours",
-    href: "/admin/viewHours",
-  },
-];

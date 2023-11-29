@@ -1,72 +1,64 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { useFormik } from "formik";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
-import { Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
-import Navbar from "@/components/Navbar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-interface Event {
-  _id: string;
-  id: string;
-  name: string;
-  createdBy: string;
-  dateCreated: number;
-}
+import axios from "axios";
+import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
-interface UserSubmittedEvent {
-    hours: number;
-    picture: string;
-    userImage: String;
-    approved: boolean;
-    user: String;
-    userEmail: String;
-    eventId: String;
-    eventName: String;
-  }
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
+import User from "@/models/User";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
-interface User {
-  email: string;
-  name: string;
-}
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ViewHours() {
   const { data: session, status } = useSession();
   const [eventdata, setEventdata] = useState<[]>([]);
   const [userList, setUserList] = useState<[]>([]);
-  const [currentUserEvents, setCurrentUserEvents] = useState<UserSubmittedEvent[]>([]);
+  const [currentUserEvents, setCurrentUserEvents] = useState<
+    UserSubmittedEvent[]
+  >([]);
   const [isAdmin, setIsAdmin] = useState(false);
   let tableSize = useBreakpointValue({ base: "sm", md: "md" });
 
   const formik = useFormik({
     initialValues: {
-      email: "default"
+      email: "default",
     },
-    onSubmit: async (values: {
-      email: string;
-    }) => {
-        const resp = await axios.get(`/api/myEvents?lookupEmail=${values.email}`);
-        if (resp.data.events != undefined) {
-            setCurrentUserEvents(resp.data.events);
-        } else {
-            setCurrentUserEvents([]);
-            toast.warn('User has not submitted any hours!', {
-                position: "top-right",
-                autoClose: 7500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
-        }
-        console.log('sussy');
+    onSubmit: async (values: { email: string }) => {
+      const resp = await axios.get(`/api/myEvents?lookupEmail=${values.email}`);
+      if (resp.data.events != undefined) {
+        setCurrentUserEvents(resp.data.events);
+      } else {
+        setCurrentUserEvents([]);
+        toast.warn("User has not submitted any hours!", {
+          position: "top-right",
+          autoClose: 7500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      console.log("sussy");
     },
   });
 
@@ -102,7 +94,9 @@ export default function ViewHours() {
             }}
           >
             <ToastContainer />
-            <Text fontWeight="extrabold" fontSize="1.2rem">View hours of someone</Text>
+            <Text fontWeight="extrabold" fontSize="1.2rem">
+              View hours of someone
+            </Text>
             <form
               onSubmit={(e) => {
                 formik.handleSubmit(e);
@@ -135,56 +129,91 @@ export default function ViewHours() {
               />
             </form>
             <Flex
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            minH="100%"
-          >
-            {/* <Text fontSize="4rem" fontWeight="extrabold">
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              minH="100%"
+            >
+              {/* <Text fontSize="4rem" fontWeight="extrabold">
               {totalHours}
             </Text>
             <Text fontSize="1.25rem">Your total hours</Text> */}
-          </Flex>
-          <br />
-          <Flex
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-          >
-
-            <Text fontSize="1.25rem">Hours submitted by <u>{currentUserEvents.length > 0 ? currentUserEvents[0].user : "..."}</u></Text>
-            <TableContainer backgroundColor="white" color="black" borderRadius="15px" overflowX="hidden">
-              <Table variant="striped" colorScheme="teal" style={{tableLayout: "auto"}} size={tableSize}>
-                <Thead>
-                  <Tr>
-                    <Th>Event name</Th>
-                    <Th isNumeric>Hours</Th>
-                    <Th>Status</Th>
-                    <Th>Pic</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {currentUserEvents.length > 0 ? (
-                    currentUserEvents.map((event: UserSubmittedEvent) => (
-                        <Tr key={uuidv4()}>
-                            <Td textOverflow="ellipsis" overflowX="hidden">{event.eventName}</Td>
-                            <Td isNumeric>{event.hours}</Td>
-                            <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
-                            <Td>{event.picture.length == 0 ? "*" : <ExternalLinkIcon cursor="pointer" onClick={() => window.open(event.picture, "_blank")} />}</Td>
-                        </Tr>
-                    ))
-                  ) : (
+            </Flex>
+            <br />
+            <Flex
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Text fontSize="1.25rem">
+                Hours submitted by{" "}
+                <u>
+                  {currentUserEvents.length > 0
+                    ? currentUserEvents[0].user
+                    : "..."}
+                </u>
+              </Text>
+              <TableContainer
+                backgroundColor="white"
+                color="black"
+                borderRadius="15px"
+                overflowX="hidden"
+              >
+                <Table
+                  variant="striped"
+                  colorScheme="teal"
+                  style={{ tableLayout: "auto" }}
+                  size={tableSize}
+                >
+                  <Thead>
                     <Tr>
-                      <Td>*</Td>
-                      <Td>*</Td>
-                      <Td>*</Td>
-                      <Td>*</Td>
+                      <Th>Event name</Th>
+                      <Th isNumeric>Hours</Th>
+                      <Th>Status</Th>
+                      <Th>Pic</Th>
                     </Tr>
-                  )}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </Flex>
+                  </Thead>
+                  <Tbody>
+                    {currentUserEvents.length > 0 ? (
+                      currentUserEvents.map((event: UserSubmittedEvent) => (
+                        <Tr key={uuidv4()}>
+                          <Td textOverflow="ellipsis" overflowX="hidden">
+                            {event.eventName}
+                          </Td>
+                          <Td isNumeric>{event.hours}</Td>
+                          <Td>
+                            {event.approved == null
+                              ? "Pending"
+                              : event.approved == true
+                              ? "Approved"
+                              : "Denied"}
+                          </Td>
+                          <Td>
+                            {event.picture.length == 0 ? (
+                              "*"
+                            ) : (
+                              <ExternalLinkIcon
+                                cursor="pointer"
+                                onClick={() =>
+                                  window.open(event.picture, "_blank")
+                                }
+                              />
+                            )}
+                          </Td>
+                        </Tr>
+                      ))
+                    ) : (
+                      <Tr>
+                        <Td>*</Td>
+                        <Td>*</Td>
+                        <Td>*</Td>
+                        <Td>*</Td>
+                      </Tr>
+                    )}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Flex>
           </main>
         </div>
       </Flex>

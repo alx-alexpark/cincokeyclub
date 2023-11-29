@@ -1,41 +1,51 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
+import { getServerSession } from "next-auth/next";
+
 import { v4 as uuidv4 } from "uuid";
+
+import clientPromise from "@/lib/mongodb";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function createEvent(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  const session = await getServerSession(req, res, authOptions);
+  // Get request parameters
   const { name } = req.query;
-  if (session) {
-    try {
-      const client = await clientPromise;
-      const db = client.db("auth");
-      const selUser = await db
-        .collection("users")
-        .findOne({ email: session?.user?.email });
-      if (selUser?.admin) {
-        await db
-          .collection("events")
-          .insertOne({
-            name: name,
-            id: uuidv4(),
-            createdBy: session.user?.name,
-            dateCreated: Date.now(),
-          });
-        res.json({ success: true });
-      } else {
-        res.status(403).json({ error: "This action is admin only!" });
-      }
-    } catch (e) {
-      res.json({ error: e });
-    }
-  } else {
-    res.status(403).json({
+
+  // Get session
+  const session = await getServerSession(req, res, authOptions);
+
+  // Deny access if no session is active
+  if (!session) {
+    return res.status(403).json({
       error: "Access Denied",
     });
+  }
+
+  try {
+    // Get client details
+    const client = await clientPromise;
+    const db = client.db("auth");
+    const selUser = await db
+      .collection("users")
+      .findOne({ email: session?.user?.email });
+
+    // Cancel request if the user is not an admin
+    if (!selUser?.admin) {
+      return res.status(403).json({ error: "This action is admin only!" });
+    }
+
+    // Add event to the database
+    await db.collection("events").insertOne({
+      name: name,
+      id: uuidv4(),
+      createdBy: session.user?.name,
+      dateCreated: Date.now(),
+    });
+
+    res.json({ success: true });
+  } catch (e) {
+    res.json({ error: e });
   }
 }

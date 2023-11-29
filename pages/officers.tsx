@@ -1,7 +1,7 @@
+import { Flex, Text } from "@chakra-ui/react";
+
 import Navbar from "@/components/Navbar";
 import OfficerCard from "@/components/OfficerCard";
-import { Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
 
 export default function OfficersPage() {
   return (
@@ -80,21 +80,21 @@ export default function OfficersPage() {
             desc="Hello, I am sofia! Fun fact about me is that I love to watch baseball with my family and I hate horror movies (i'm too scared). "
             bgPosY="-50%"
           />
-           <OfficerCard
+          <OfficerCard
             name="Collin Le"
             photoSrc="/officerPhotos/collin.jpeg"
             position="Secretary"
             desc="Hi, I am Collin, and I love playing the flute and going hiking (only if it's cold). I enjoy cooking big meals and gardening. Also, I have an old man's taste, so anything that is bitter and minimalistic. Give me a pillow, and I'll sleep anywhere."
             bgPosY="-25%"
           />
-           <OfficerCard
+          <OfficerCard
             name="Katherine"
             photoSrc="/officerPhotos/katherine.jpeg"
             position="General Manager"
             desc="Hello, I’m Katherine and i’ll be your general manager. I’m a Senior and super excited for this year. I love going to concerts, reading and the color purple. I also really like trying out new things and go to new places. "
             bgPosY="-65%"
           />
-          <OfficerCard 
+          <OfficerCard
             name="Tobi Ladeji"
             desc="Hi I’m Tobi. I’m a junior and I love bake and go running. My favorite candy is sour patch kids."
             position="General Manager"
@@ -114,10 +114,8 @@ export default function OfficersPage() {
             desc="Hi! I made this website. I am interested in programming, system administration, and planes."
             bgPosY="0%"
           />
-
         </Flex>
       </Flex>
     </Flex>
   );
 }
-

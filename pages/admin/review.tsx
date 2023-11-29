@@ -1,12 +1,13 @@
+import { Button, Card, Flex } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+
+import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import SuggestLogin from "@/components/SuggestLogin";
-import { Button, Card, Flex } from "@chakra-ui/react";
+
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ToastContainer, toast } from "react-toastify";
-import LoadingScreen from "@/components/LoadingScreen";
 
 interface HoursRequest {
   hours: string;
@@ -27,6 +28,7 @@ export default function AdminPanel() {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
+    // Check if the user is an admin
     axios
       .get("/api/isadmin")
       .then((res) => {
@@ -37,6 +39,7 @@ export default function AdminPanel() {
         setIsAdmin(false);
       });
 
+    // Get pending requests
     axios.get("/api/getPendingHoursRequests").then((res) => {
       setRequests(res.data.pending);
     });
@@ -50,10 +53,16 @@ export default function AdminPanel() {
     return (
       <Flex flexDirection="column" minH="100vh">
         <Navbar />
-        <div className="container flex items-center p-4 mx-auto justify-center flex-col h-full" style={{flex: "1"}}>
+        <div
+          className="container flex items-center p-4 mx-auto justify-center flex-col h-full"
+          style={{ flex: "1" }}
+        >
+          {/* Show a message when there are no more pending requests */}
           {requests.length == 0 && (
             <h1>There are no more hour submissions for you to process</h1>
           )}
+
+          {/* Show each request as a card */}
           {requests.map((req: HoursRequest) => {
             return (
               <Card key={uuidv4()}>
@@ -74,7 +83,7 @@ export default function AdminPanel() {
                     }}
                   />
                   <p>
-                    {req.hours} Hour{parseFloat(req.hours) > 1 && "s"} @{" "}
+                    {req.hours} Hour{parseFloat(req.hours) !== 1 && "s"} @{" "}
                     {req.eventName}
                   </p>
                   <p>Submitted by {req.user}</p>
@@ -82,6 +91,7 @@ export default function AdminPanel() {
                     <p>User submitted comment: &quot;{req.comment}&quot;</p>
                   )}
 
+                  {/* Approve/deny buttons */}
                   <Flex
                     alignItems="stretch"
                     flexDir="row"
@@ -100,27 +110,28 @@ export default function AdminPanel() {
                         });
                         setRequests(
                           requests.filter(
-                            (r: HoursRequest) => r.uuid != req.uuid
-                          )
+                            (r: HoursRequest) => r.uuid != req.uuid,
+                          ),
                         );
                       }}
                     >
                       Approve
                     </Button>
+
                     <Button
                       size="md"
                       variant="solid"
                       backgroundColor="#FF0800"
                       onClick={async () => {
                         await axios.post("/api/approveOrDeny", {
-                          status: "deny",
+                          status: false,
                           id: req.eventId,
                           email: req.userEmail,
                         });
                         setRequests(
                           requests.filter(
-                            (r: HoursRequest) => r.uuid != req.uuid
-                          )
+                            (r: HoursRequest) => r.uuid != req.uuid,
+                          ),
                         );
                       }}
                     >

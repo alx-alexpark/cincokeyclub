@@ -4,17 +4,17 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.usercontent.cincokey.club',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "cdn.usercontent.cincokey.club",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'drive.google.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "drive.google.com",
+        pathname: "/**",
       },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

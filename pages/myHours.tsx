@@ -1,42 +1,25 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import Image from "next/image";
-import SuggestLogin from "@/components/SuggestLogin";
-import LoadingScreen from "@/components/LoadingScreen";
 import {
-  Card,
-  CardBody,
   Flex,
-  HStack,
-  StackDivider,
-  Text,
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-interface Event {
-  hours: number;
-  picture: String;
-  userImage: String;
-  approved: boolean;
-  user: String;
-  userEmail: String;
-  eventId: String;
-  eventName: String;
-}
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import SuggestLogin from "@/components/SuggestLogin";
+import UserSubmittedEvent from "@/models/UserSubmittedEvent";
 
 export default function MyHours() {
   const { data: session, status } = useSession();
@@ -82,10 +65,19 @@ export default function MyHours() {
             alignItems="center"
             justifyContent="center"
           >
-
             <Text fontSize="1.5rem">Events you have attended</Text>
-            <TableContainer backgroundColor="white" color="black" borderRadius="15px" overflowX="hidden">
-              <Table variant="striped" colorScheme="teal" style={{tableLayout: "auto"}} size={tableSize}>
+            <TableContainer
+              backgroundColor="white"
+              color="black"
+              borderRadius="15px"
+              overflowX="hidden"
+            >
+              <Table
+                variant="striped"
+                colorScheme="teal"
+                style={{ tableLayout: "auto" }}
+                size={tableSize}
+              >
                 <Thead>
                   <Tr>
                     <Th>Event name</Th>
@@ -95,12 +87,20 @@ export default function MyHours() {
                 </Thead>
                 <Tbody>
                   {events != undefined ? (
-                    events.map((event: Event) => {
+                    events.map((event: UserSubmittedEvent) => {
                       return (
                         <Tr key={uuidv4()}>
-                          <Td textOverflow="ellipsis" overflowX="hidden">{event.eventName}</Td>
+                          <Td textOverflow="ellipsis" overflowX="hidden">
+                            {event.eventName}
+                          </Td>
                           <Td isNumeric>{event.hours}</Td>
-                          <Td>{event.approved == null ? "Pending" : event.approved == true ? "Approved" : "Denied"}</Td>
+                          <Td>
+                            {event.approved == null
+                              ? "Pending"
+                              : event.approved
+                              ? "Approved"
+                              : "Denied"}
+                          </Td>
                         </Tr>
                       );
                     })

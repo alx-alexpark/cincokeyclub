@@ -1,31 +1,35 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import Link from "next/link";
 import { Button, Flex, Text } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 import Navbar from "@/components/Navbar";
-import { useRouter } from 'next/router'
 
 export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
   return (
-    <Flex style={{minHeight: "100vh"}} flexDir="column">
+    <Flex style={{ minHeight: "100vh" }} flexDir="column">
       <Navbar />
-  
-      <Flex flexDir="column" alignItems="center" justifyContent='center' flex="1">
-        <Text fontSize="3rem" fontWeight="extrabold" >
+
+      <Flex
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+        flex="1"
+      >
+        <Text fontSize="3rem" fontWeight="extrabold">
           Cinco Key Club
         </Text>
         <Text fontSize="1.25rem">Division 3W - TO Key Club</Text>
         <Image src="/kc.png" width="300" height="300" alt="Key Club Logo" />
-        <Button onClick={() => router.push('/submit')}>Submit your hours!</Button>
+        <Button onClick={() => router.push("/submit")}>
+          Submit your hours!
+        </Button>
       </Flex>
 
-      
-
       {/* <Text fontSize="1.1rem" textAlign="center" marginBottom="3em" paddingLeft="4em" paddingRight="4em">Key Club is a volunteer organization that stands for Kiwanis Empowering Youth. Key Club members around the world are learning how to lead and stand for what’s right through service and volunteerism. In partnership with their local Kiwanis club, high school students are making a positive impact as they serve others in their schools and communities.</Text> */}
-
 
       {/* <div
         className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"

@@ -1,9 +1,10 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import { Analytics } from '@vercel/analytics/react';
+
+import "@/styles/globals.css";
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({ subsets: ["latin"] });
