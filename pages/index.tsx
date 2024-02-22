@@ -17,7 +17,8 @@ export default function Home() {
         <Text fontSize="3rem" fontWeight="extrabold" >
           Cinco Key Club
         </Text>
-        <Text fontSize="1.25rem">Division 3W - TO Key Club</Text>
+        <Text fontSize="1.25rem">Division 3W - <Link href="https://tokeyclub.com/"><u>TO Key Club</u></Link></Text>
+        <Link href="/about"><Text fontSize="1.1rem" as="u">What&apos;s Key Club?</Text></Link>
         <Image src="/kc.png" width="300" height="300" alt="Key Club Logo" />
         <Button onClick={() => router.push('/submit')}>Submit your hours!</Button>
       </Flex>
