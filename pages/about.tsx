@@ -32,7 +32,7 @@ export default function About() {
               You can contact individual officers on the <Link href="/officers"><Text as="u"> officers page.</Text></Link>
               </p>
               <br/><p className="dark:text-gray-950 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-950 mb-3">
-              Our division's Lt. Governer, Helen Conde, can be reached at <Link href="mailto:ltg3w@tokeyclub.com"><Text as="u">ltg3w@tokeyclub.com.</Text></Link>
+              Our division&apos;s Lt. Governer, Helen Conde, can be reached at <Link href="mailto:ltg3w@tokeyclub.com"><Text as="u">ltg3w@tokeyclub.com.</Text></Link>
               </p>
             </div>
           </div>
