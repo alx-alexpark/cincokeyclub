@@ -29,13 +29,14 @@ export default async function exportSpreadsheet(req: NextApiRequest, res: NextAp
 }) => {
             console.log("adding hours");
             console.log(eventIds.indexOf(event.eventId) + ":" + event.hours + ":" + event.eventId);
+            if (eventIds.)
             hoursRow[eventIds.indexOf(event.eventId)] += event.hours; // Fix: Convert the element to a number before adding
         });
         let csvRow = user.name + ", " + hoursRow.join(",");
         userHoursRows += csvRow + "\n";
     });
 
-    const csvHeader = " , " +eventIds.join(",") + "\n" + eventNames.join(",") + "\n";
+    const csvHeader = " , " +eventIds.join(",") + "\n" + ", " + eventNames.join(",") + "\n";
     const csvContent = `${csvHeader}${userHoursRows}`;
 
 
