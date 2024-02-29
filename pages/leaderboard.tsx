@@ -40,8 +40,8 @@ export default function Leaderboard() {
       <div className="min-h-screen" style={{display: "flex", flexDirection: "column"}}>
         <Navbar />
         <Center width="100vw" minH="100%" flex={1}>
-          <Text>The leaderboard has been temporarily disabled.</Text>
-          {/* <Flex flexDir="column" minH="100%">
+          {/* <Text>The leaderboard has been temporarily disabled.</Text> */}
+          <Flex flexDir="column" minH="100%">
             <Text fontSize="3.5em">Leaderboard</Text>
             <Flex alignItems="center" justifyContent="center" flexDir="column">
             <TableContainer backgroundColor="white" color="black" borderRadius="15px" marginBottom="2.3em">
@@ -65,7 +65,7 @@ export default function Leaderboard() {
               </Table>
             </TableContainer>
             </Flex>
-          </Flex> */}
+          </Flex>
         </Center>
       </div>
     );

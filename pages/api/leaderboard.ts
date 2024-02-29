@@ -23,21 +23,7 @@ export default async function getLeaderboard(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    const session = await getServerSession(req, res, authOptions)
-
-    if (!session) {
-      res.json({ error: "You are not logged in" });
-      return;
-    }
-
-    console.log(session?.user?.name)
-
-    if (session?.user?.name?.toLowerCase() == "vivian zhang") {
-      res.json({ error: "You are banned from the leaderboard" });
-      return;
-    }
-
+  try { 
     let leaderboard: LeaderboardEntry[] = [];
     const client = await clientPromise;
     const db = client.db("auth");

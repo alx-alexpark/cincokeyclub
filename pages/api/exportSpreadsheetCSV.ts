@@ -23,7 +23,7 @@ export default async function exportSpreadsheet(req: NextApiRequest, res: NextAp
             return
         }
         
-        let hoursRow = Array(eventIds.length).fill(0); // Fix: Initialize hoursRow with an array of zeros
+        let hoursRow = Array(eventIds.length).fill(0); 
         user.events.forEach((event: {
             approved: boolean;
             eventId: any; id: any; hours: number; 
@@ -31,7 +31,7 @@ export default async function exportSpreadsheet(req: NextApiRequest, res: NextAp
             console.log("adding hours");
             console.log(eventIds.indexOf(event.eventId) + ":" + event.hours + ":" + event.eventId);
             if (event.approved == true) 
-                hoursRow[eventIds.indexOf(event.eventId)] += event.hours; // Fix: Convert the element to a number before adding
+                hoursRow[eventIds.indexOf(event.eventId)] += event.hours; 
         });
         let csvRow = user.name + ", " + hoursRow.join(",");
         userHoursRows += csvRow + "\n";
@@ -40,14 +40,6 @@ export default async function exportSpreadsheet(req: NextApiRequest, res: NextAp
     const csvHeader = " , " +eventIds.join(",") + "\n" + ", " + eventNames.join(",") + "\n";
     const csvContent = `${csvHeader}${userHoursRows}`;
 
-
-    
-    
-    
-
-
-
-    // Set the response headers and send the CSV content
     res.setHeader('Content-Type', 'text/csv');
     res.setHeader('Content-Disposition', 'attachment; filename="sussyamogus.csv"');
     res.send(csvContent);
