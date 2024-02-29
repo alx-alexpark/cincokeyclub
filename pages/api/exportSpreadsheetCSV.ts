@@ -25,12 +25,13 @@ export default async function exportSpreadsheet(req: NextApiRequest, res: NextAp
         
         let hoursRow = Array(eventIds.length).fill(0); // Fix: Initialize hoursRow with an array of zeros
         user.events.forEach((event: {
+            approved: boolean;
             eventId: any; id: any; hours: number; 
 }) => {
             console.log("adding hours");
             console.log(eventIds.indexOf(event.eventId) + ":" + event.hours + ":" + event.eventId);
-            if (eventIds.)
-            hoursRow[eventIds.indexOf(event.eventId)] += event.hours; // Fix: Convert the element to a number before adding
+            if (event.approved == true) 
+                hoursRow[eventIds.indexOf(event.eventId)] += event.hours; // Fix: Convert the element to a number before adding
         });
         let csvRow = user.name + ", " + hoursRow.join(",");
         userHoursRows += csvRow + "\n";
