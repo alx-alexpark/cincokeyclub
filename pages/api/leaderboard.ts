@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 interface Event {
   image: string;
@@ -22,6 +24,20 @@ export default async function getLeaderboard(
   res: NextApiResponse
 ) {
   try {
+    const session = await getServerSession(req, res, authOptions)
+
+    if (!session) {
+      res.json({ error: "You are not logged in" });
+      return;
+    }
+
+    console.log(session?.user?.name)
+
+    if (session?.user?.name?.toLowerCase() == "vivian zhang") {
+      res.json({ error: "You are banned from the leaderboard" });
+      return;
+    }
+
     let leaderboard: LeaderboardEntry[] = [];
     const client = await clientPromise;
     const db = client.db("auth");
