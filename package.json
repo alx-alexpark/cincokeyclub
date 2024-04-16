@@ -24,7 +24,7 @@
     "autoprefixer": "10.4.14",
     "aws-sdk": "^2.1450.0",
     "axios": "^1.6.0",
-    "dompurify": "^3.0.5",
+    "dompurify": "^3.0.11",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "formidable": "^2.1.1",
